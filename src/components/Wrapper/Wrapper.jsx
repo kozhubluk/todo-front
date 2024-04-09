@@ -1,11 +1,12 @@
 import Sidebar from '../Sidebar/Sidebar';
+import './Wrapper.scss';
 
 const Wrapper = ({ children }) => {
   return (
-    <>
+    <div className="wrapper">
       <Sidebar />
-      {children}
-    </>
+      <div className="content">{children}</div>
+    </div>
   );
 };
 

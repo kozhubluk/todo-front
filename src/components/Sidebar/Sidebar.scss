@@ -1,7 +1,109 @@
+@import '../../styles/colors.scss';
+
 .sidebar {
-  background-color: rgba(255, 0, 0, 0.089);
-  width: 200px;
-  padding: 20px 30px;
+  width: 260px;
   display: flex;
   flex-direction: column;
+  &__container {
+    position: fixed;
+    height: 100%;
+    width: inherit;
+    background-color: $backgroung-grey;
+  }
+  &__user-info {
+    padding: 30px 20px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  &__setting {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 2px solid $white;
+    transition: 0.2s;
+    & svg {
+      width: 25px;
+    }
+    & * {
+      stroke: $white;
+    }
+    &:hover,
+    &:hover * {
+      stroke: $main-blue;
+      border-color: $main-blue;
+      transition: 0.2s;
+    }
+  }
+  &__username {
+    font-weight: 500;
+  }
+
+  &__menu {
+    width: 100%;
+  }
+
+  &__item {
+    transition: 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    &:hover {
+      background-color: $grey;
+      transition: 0.15s;
+    }
+  }
+
+  &__item-link {
+    display: flex;
+    padding: 10px 25px;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    height: 100%;
+    &.active * {
+      stroke: $main-blue;
+      color: $main-blue;
+    }
+  }
+
+  &__item-icon {
+    & * {
+      stroke: $light-grey;
+      stroke-width: 1.7;
+    }
+    width: 28px;
+    height: 28px;
+  }
+
+  &__item-title {
+    color: $dark-white;
+    transition: 0.15s;
+    font-weight: 400;
+  }
+  &__header {
+    cursor: pointer;
+    margin-top: 15px;
+    display: flex;
+    padding: 10px 25px;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 400;
+  }
+  &__add-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 24px;
+    &:hover {
+      color: $main-blue;
+    }
+  }
 }
