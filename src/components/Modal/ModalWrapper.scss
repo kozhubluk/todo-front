@@ -1,0 +1,52 @@
+@import '../../styles/colors.scss';
+
+.modal {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  &__box {
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: 0.15s;
+    background-color: $backgroung-grey;
+    position: relative;
+    padding: 25px;
+    border-radius: 15px;
+    width: fit-content;
+    -webkit-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+    -moz-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+    box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+    &.active {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  &__close-button {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+    path {
+      stroke: $white;
+      fill: $white;
+    }
+    &:hover {
+      path {
+        stroke: $main-blue;
+        fill: $main-blue;
+      }
+    }
+  }
+}

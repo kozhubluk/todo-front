@@ -1,0 +1,41 @@
+@import '../../styles/colors.scss';
+
+.list-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 10px;
+  column-gap: 16px;
+  input {
+    border: none;
+    color: $white;
+    caret-color: $main-blue;
+    background-color: transparent;
+    font-size: 24px;
+    font-weight: 400;
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    color: $white;
+    font-weight: 400;
+    border-radius: 20px;
+    &:hover {
+      filter: brightness(1.4);
+    }
+    &:disabled {
+      filter: brightness(0.5);
+      cursor: not-allowed;
+    }
+  }
+  &__save-button {
+    background-color: $main-blue;
+  }
+  &__cancel-button {
+    background-color: $red;
+  }
+}

@@ -9,8 +9,18 @@ import { ReactComponent as DeleteIcon } from '../../assets/svg/delete.svg';
 import { ReactComponent as EditIcon } from '../../assets/svg/edit.svg';
 import { useRef, useState } from 'react';
 import { Dropdown, DropdownItem } from '../Dropdown/Dropdown';
+import ModalWrapper from '../Modal/ModalWrapper';
+import ListForm from '../ListForm/ListForm';
 
 const Sidebar = () => {
+  const [modal, setModal] = useState(false);
+  const [currentList, setCurrentList] = useState({});
+
+  const openModal = (list) => {
+    setCurrentList(list);
+    setModal(true);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__container">
@@ -32,11 +42,14 @@ const Sidebar = () => {
             <div className="sidebar__header-title">Мои списки</div>
             <button className="sidebar__add-button">+</button>
           </li>
-          <ListItem id={1} title={'Важное!!'} />
-          <ListItem id={2} title={'ОСТ'} />
-          <ListItem id={3} title={'Учеба'} />
+          <ListItem editHandler={openModal} onDelete={null} id={1} title={'Важное!!'} />
+          <ListItem editHandler={openModal} onDelete={null} id={2} title={'ОСТ'} />
+          <ListItem editHandler={openModal} onDelete={null} id={3} title={'Учеба'} />
         </ul>
       </div>
+      <ModalWrapper active={modal} setActive={setModal}>
+        <ListForm data={currentList}></ListForm>
+      </ModalWrapper>
     </div>
   );
 };
@@ -56,7 +69,7 @@ const MenuItem = ({ to, icon, title }) => {
   );
 };
 
-const ListItem = ({ id, title }) => {
+const ListItem = ({ id, title, editHandler }) => {
   const [active, setActive] = useState(false);
   const buttonRef = useRef();
 
@@ -73,7 +86,6 @@ const ListItem = ({ id, title }) => {
             <MoreIcon
               ref={buttonRef}
               onClick={(e) => {
-                e.preventDefault();
                 setActive((prev) => !prev);
               }}
             />
@@ -81,7 +93,14 @@ const ListItem = ({ id, title }) => {
         </div>
       </NavLink>
       <Dropdown active={active} setActive={setActive} button={buttonRef}>
-        <DropdownItem iconLeft={<EditIcon />}>Изменить</DropdownItem>
+        <DropdownItem
+          actionHandler={() => {
+            editHandler({ id, title });
+            setActive(false);
+          }}
+          iconLeft={<EditIcon />}>
+          Изменить
+        </DropdownItem>
         <DropdownItem iconLeft={<DeleteIcon />}>Удалить</DropdownItem>
       </Dropdown>
     </li>
