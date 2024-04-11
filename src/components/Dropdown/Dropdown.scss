@@ -1,0 +1,63 @@
+@import '../../styles/colors.scss';
+
+.test {
+  position: relative;
+}
+
+.dropdown {
+  pointer-events: auto;
+  z-index: 40;
+  display: none;
+  width: fit-content;
+  height: fit-content;
+  padding: 6px 0;
+  border-radius: 10px;
+  background-color: $dark-grey;
+  -webkit-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+  -moz-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+  box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+  position: absolute;
+  top: 30px;
+  left: calc(100% - 30px);
+  animation: dropdown 0.2s reverse;
+
+  &.active {
+    display: block;
+    animation: dropdown 0.15s ease;
+  }
+
+  &__item {
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: $white;
+    cursor: pointer;
+    &:hover {
+      background-color: $light-grey;
+    }
+  }
+
+  &__item-left-icon,
+  &__item-right-icon {
+    width: 28px;
+    height: 28px;
+
+    path {
+      stroke: $light-grey;
+    }
+  }
+}
+
+@keyframes dropdown {
+  0% {
+    display: none;
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
