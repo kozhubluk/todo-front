@@ -16,11 +16,12 @@
   }
   &__box {
     transform: translateY(-50px);
+    overflow: hidden;
     opacity: 0;
     transition: 0.15s;
     background-color: $backgroung-grey;
     position: relative;
-    padding: 25px;
+
     border-radius: 15px;
     width: fit-content;
     -webkit-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);

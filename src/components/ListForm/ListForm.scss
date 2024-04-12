@@ -1,11 +1,6 @@
 @import '../../styles/colors.scss';
 
 .list-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  row-gap: 10px;
-  column-gap: 16px;
   input {
     border: none;
     color: $white;
@@ -20,22 +15,37 @@
       outline: none;
     }
   }
-  button {
-    color: $white;
-    font-weight: 400;
-    border-radius: 20px;
-    &:hover {
-      filter: brightness(1.4);
-    }
-    &:disabled {
-      filter: brightness(0.5);
-      cursor: not-allowed;
-    }
+
+  &__header {
+    color: $light-grey;
+    margin-bottom: 6px;
+    padding-right: 20px;
+    text-transform: uppercase;
   }
-  &__save-button {
-    background-color: $main-blue;
+  &__content {
+    padding: 12px;
   }
-  &__cancel-button {
-    background-color: $red;
+
+  &__buttons {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    background-color: $dark-grey;
+    button {
+      color: $white;
+      font-weight: 400;
+      border-radius: 20px;
+      &:nth-child(2) {
+        color: $main-blue;
+      }
+      &:hover {
+        filter: brightness(1.4);
+      }
+      &:disabled {
+        filter: brightness(0.5);
+        cursor: not-allowed;
+      }
+    }
   }
 }

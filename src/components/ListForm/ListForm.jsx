@@ -1,19 +1,24 @@
 import './ListForm.scss';
 import { useEffect, useState } from 'react';
 
-const ListForm = ({ data }) => {
-  const [title, setTitle] = useState(data.title);
+const ListForm = ({ data, cancelHandler }) => {
+  const [title, setTitle] = useState('');
   useEffect(() => {
-    setTitle(data.title);
+    if (data.title) {
+      setTitle(data.title);
+    }
   }, [data]);
 
   return (
     <div className="list-form">
-      <input onChange={(e) => setTitle(e.target.value)} value={title}></input>
-      <button className="list-form__save-button" disabled={!title.trim()}>
-        Сохранить
-      </button>
-      <button className="list-form__cancel-button">Отменить</button>
+      <div className="list-form__content">
+        <div className="list-form__header">LIST NAME</div>
+        <input onChange={(e) => setTitle(e.target.value)} value={title && title.trim()}></input>
+      </div>
+      <div className="list-form__buttons">
+        <button onClick={cancelHandler}>Отмена</button>
+        <button disabled={!title}>Сохранить</button>
+      </div>
     </div>
   );
 };

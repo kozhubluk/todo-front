@@ -21,6 +21,10 @@ const Sidebar = () => {
     setModal(true);
   };
 
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
     <div className="sidebar">
       <div className="sidebar__container">
@@ -48,7 +52,7 @@ const Sidebar = () => {
         </ul>
       </div>
       <ModalWrapper active={modal} setActive={setModal}>
-        <ListForm data={currentList}></ListForm>
+        <ListForm data={currentList} cancelHandler={closeModal}></ListForm>
       </ModalWrapper>
     </div>
   );
@@ -86,6 +90,7 @@ const ListItem = ({ id, title, editHandler }) => {
             <MoreIcon
               ref={buttonRef}
               onClick={(e) => {
+                e.preventDefault();
                 setActive((prev) => !prev);
               }}
             />

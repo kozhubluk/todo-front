@@ -16,6 +16,7 @@ const ModalWrapper = ({ active, setActive, children }) => {
         <div className="modal__close-button" onClick={closeModal}>
           <CloseIcon />
         </div>
+
         {children}
       </div>
     </div>
