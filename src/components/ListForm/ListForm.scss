@@ -2,20 +2,10 @@
 
 .list-form {
   input {
-    border: none;
-    color: $white;
-    caret-color: $main-blue;
-    background-color: transparent;
-    font-size: 24px;
-    font-weight: 400;
     display: grid;
     grid-column-start: 1;
     grid-column-end: 3;
-    &:focus {
-      outline: none;
-    }
   }
-
   &__header {
     color: $light-grey;
     margin-bottom: 6px;

@@ -51,7 +51,7 @@ const Sidebar = () => {
           <ListItem editHandler={openModal} onDelete={null} id={3} title={'Учеба'} />
         </ul>
       </div>
-      <ModalWrapper active={modal} setActive={setModal}>
+      <ModalWrapper active={modal} closeModal={closeModal}>
         <ListForm data={currentList} cancelHandler={closeModal}></ListForm>
       </ModalWrapper>
     </div>
@@ -97,7 +97,13 @@ const ListItem = ({ id, title, editHandler }) => {
           </div>
         </div>
       </NavLink>
-      <Dropdown active={active} setActive={setActive} button={buttonRef}>
+      <Dropdown
+        active={active}
+        position="right"
+        closeDropdown={() => {
+          setActive((prev) => false);
+        }}
+        button={buttonRef}>
         <DropdownItem
           actionHandler={() => {
             editHandler({ id, title });

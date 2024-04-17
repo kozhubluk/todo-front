@@ -1,0 +1,42 @@
+@import '../../styles/colors.scss';
+
+.todo-form {
+  width: 500px;
+  border-radius: 15px;
+  z-index: 1200;
+  padding: 10px 25px 0 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: $dark-grey;
+  &__title {
+    margin-bottom: 10px;
+  }
+  &__buttons {
+    display: flex;
+    gap: 10px;
+  }
+  &__button-container {
+    position: relative;
+    background-color: red;
+  }
+  &__buttons button {
+    transition: 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background-color: $grey;
+    border-radius: 20px;
+    &:hover {
+      background-color: $light-grey;
+    }
+    svg {
+      width: 24px;
+    }
+    path {
+      stroke: $main-blue;
+    }
+  }
+}

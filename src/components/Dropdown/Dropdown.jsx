@@ -1,22 +1,24 @@
 import { useEffect, useRef } from 'react';
 import './Dropdown.scss';
 
-export const Dropdown = ({ active, setActive, children, button }) => {
+export const Dropdown = ({ active, closeDropdown, children, button, position = 'down' }) => {
   const dropdownRef = useRef();
 
   useEffect(() => {
     const onClick = (e) => {
       if (active && !button.current.contains(e.target) && !dropdownRef.current.contains(e.target)) {
-        setActive(false);
+        closeDropdown();
       }
     };
 
     window.addEventListener('click', onClick);
     return () => window.removeEventListener('click', onClick);
-  }, [active, button, setActive]);
+  }, [active, button, closeDropdown]);
 
   return (
-    <div ref={dropdownRef} className={active ? 'dropdown active' : 'dropdown'}>
+    <div
+      ref={dropdownRef}
+      className={`dropdown dropdown--${position} ${active ? 'dropdown--active' : ''}`}>
       <ul className="dropdown__menu">{children}</ul>
     </div>
   );

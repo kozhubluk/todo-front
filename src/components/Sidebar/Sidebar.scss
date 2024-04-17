@@ -4,8 +4,10 @@
   width: 260px;
   display: flex;
   flex-direction: column;
+  z-index: 2000;
 
   &__container {
+    z-index: 1900;
     padding: 10px 0;
     position: fixed;
     width: inherit;

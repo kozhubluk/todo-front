@@ -1,0 +1,11 @@
+.today-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 65%;
+  h1 {
+    font-weight: 600;
+    font-size: 28px;
+  }
+}

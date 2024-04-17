@@ -6,8 +6,11 @@
 
 .dropdown {
   pointer-events: auto;
-  z-index: 40;
+  z-index: 2000 !important;
+  position: relative;
   display: none;
+  margin-top: 100px;
+  overflow: hidden;
   width: fit-content;
   height: fit-content;
   padding: 6px 0;
@@ -17,11 +20,20 @@
   -moz-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
   box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
   position: absolute;
-  top: 30px;
-  left: calc(100% - 30px);
+  transition: 0;
   animation: dropdown 0.2s reverse;
 
-  &.active {
+  &--down {
+    top: 40px;
+    left: 0;
+  }
+
+  &--right {
+    right: -70px;
+    bottom: -200%;
+  }
+
+  &--active {
     display: block;
     animation: dropdown 0.15s ease;
   }

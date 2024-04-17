@@ -4,12 +4,18 @@
   width: 100vw;
   height: 100vh;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
+  z-index: 3000;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   pointer-events: none;
+  transition: 0.25s;
   &.active {
     opacity: 1;
     pointer-events: auto;
@@ -21,7 +27,7 @@
     transition: 0.15s;
     background-color: $backgroung-grey;
     position: relative;
-
+    transition: 0.2s;
     border-radius: 15px;
     width: fit-content;
     -webkit-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);

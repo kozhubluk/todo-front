@@ -149,3 +149,22 @@ button {
   background-color: transparent;
   cursor: pointer;
 }
+
+.list-name {
+  font-size: 14px;
+  color: $light-grey;
+  line-height: 1;
+}
+
+input {
+  border: none;
+  line-height: 1;
+  color: $white;
+  caret-color: $main-blue;
+  background-color: transparent;
+  font-size: 24px;
+  font-weight: 400;
+  &:focus {
+    outline: none;
+  }
+}

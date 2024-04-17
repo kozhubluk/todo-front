@@ -1,11 +1,7 @@
 import './ModalWrapper.scss';
 import { ReactComponent as CloseIcon } from '../../assets/svg/close.svg';
 
-const ModalWrapper = ({ active, setActive, children }) => {
-  const closeModal = () => {
-    setActive(false);
-  };
-
+const ModalWrapper = ({ active, openModal, closeModal, children }) => {
   return (
     <div className={`modal${active ? ' active' : ''}`} onClick={closeModal}>
       <div
