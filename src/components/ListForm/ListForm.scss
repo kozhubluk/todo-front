@@ -4,13 +4,15 @@
   input {
     display: grid;
     grid-column-start: 1;
+    font-size: 24px;
+    font-weight: 300;
     grid-column-end: 3;
   }
   &__header {
+    margin-bottom: 12px;
     color: $light-grey;
-    margin-bottom: 6px;
-    padding-right: 20px;
     text-transform: uppercase;
+    padding-right: 20px;
   }
   &__content {
     padding: 12px;
@@ -22,6 +24,7 @@
     grid-template-columns: 1fr 1fr;
     padding: 10px;
     background-color: $dark-grey;
+
     button {
       color: $white;
       font-weight: 400;

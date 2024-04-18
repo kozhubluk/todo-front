@@ -6,7 +6,7 @@ export const Dropdown = ({ active, closeDropdown, children, button, position = '
 
   useEffect(() => {
     const onClick = (e) => {
-      if (active && !button.current.contains(e.target) && !dropdownRef.current.contains(e.target)) {
+      if (active && !button.current.contains(e.target)) {
         closeDropdown();
       }
     };
@@ -17,6 +17,7 @@ export const Dropdown = ({ active, closeDropdown, children, button, position = '
 
   return (
     <div
+      onClick={(e) => e.stopPropagation()}
       ref={dropdownRef}
       className={`dropdown dropdown--${position} ${active ? 'dropdown--active' : ''}`}>
       <ul className="dropdown__menu">{children}</ul>

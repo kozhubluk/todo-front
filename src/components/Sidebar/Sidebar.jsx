@@ -34,10 +34,6 @@ const Sidebar = () => {
           </div>
           <div className="sidebar__username">Avdeeva Anast...</div>
         </div>
-        <div className="sidebar__add">
-          <div className="sidebar__add-icon">+</div>
-          <div className="sidebar__add-text"> Добавить задачу</div>
-        </div>
         <ul className="sidebar__menu">
           <MenuItem to="/" icon={<TodayIcon />} title="Сегодня" />
           <MenuItem to="/week" icon={<WeekIcon />} title="Следующие 7 дней" />

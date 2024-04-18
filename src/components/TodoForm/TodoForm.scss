@@ -4,21 +4,22 @@
   width: 500px;
   border-radius: 15px;
   z-index: 1200;
-  padding: 10px 25px 0 25px;
+  padding: 10px 25px 30px 25px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   background-color: $dark-grey;
   &__title {
     margin-bottom: 10px;
+    font-size: 24px;
   }
   &__buttons {
     display: flex;
     gap: 10px;
+    margin-bottom: 15px;
   }
   &__button-container {
     position: relative;
-    background-color: red;
   }
   &__buttons button {
     transition: 0.2s;
@@ -37,6 +38,50 @@
     }
     path {
       stroke: $main-blue;
+    }
+  }
+  label {
+    color: $light-grey;
+    text-transform: uppercase;
+  }
+  textarea {
+    width: 100%;
+    resize: none;
+
+    line-height: 1.5;
+    background-color: transparent;
+    border: none;
+    height: 75px;
+  }
+  &__subtasks {
+    display: grid;
+    display: column;
+    gap: 10px;
+  }
+}
+
+svg {
+  &.default {
+    path {
+      stroke: $main-blue;
+    }
+  }
+
+  &.low {
+    path {
+      stroke: $green;
+    }
+  }
+
+  &.medium {
+    path {
+      stroke: $orange;
+    }
+  }
+
+  &.high {
+    path {
+      stroke: $red;
     }
   }
 }

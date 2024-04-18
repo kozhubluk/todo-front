@@ -23,8 +23,7 @@
 
   &__user-info,
   &__item-link,
-  &__header,
-  &__add {
+  &__header {
     cursor: pointer;
     padding: 8px 25px;
     display: flex;
@@ -33,28 +32,10 @@
   }
 
   &__item-link,
-  &__header,
-  &__add {
+  &__header {
     &:hover {
       background-color: $grey;
     }
-  }
-
-  &__add div {
-    font-weight: 500;
-  }
-
-  &__add-icon {
-    font-size: 20px;
-    line-height: 1;
-    background-color: $main-blue;
-    border-radius: 50%;
-    top: 2px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   &__setting {

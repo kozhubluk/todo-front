@@ -1,0 +1,42 @@
+@import '../../styles/colors.scss';
+
+.modal-list {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 40px;
+
+  &__header {
+    padding: 15px 40px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 300;
+    background-color: $dark-grey;
+  }
+  &__item {
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+    line-height: 2;
+    font-weight: 200;
+    padding: 8px 75px 5px 20px;
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 2%;
+      right: 2%;
+      width: 96%;
+      border-top: 1px solid $grey;
+      content: '';
+    }
+
+    &:hover {
+      background-color: $dark-grey;
+    }
+
+    &.active {
+      background-color: $dark-grey;
+      color: $main-blue;
+    }
+  }
+}

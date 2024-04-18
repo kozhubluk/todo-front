@@ -8,3 +8,9 @@ $main-blue: #0084ff;
 $red: rgb(231, 75, 75);
 $orange: rgb(225, 125, 43);
 $green: rgb(84, 181, 110);
+
+:export {
+  blue: $main-blue;
+  white: $white;
+  lightGrey: $light-grey;
+}
