@@ -5,9 +5,9 @@ import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
 const SubtaskItem = ({ title, isDone }) => {
   return (
     <div className={`subtask-item${isDone ? ' done' : ''}`}>
-      <label class={`container`}>
+      <label className={`container`}>
         <input checked={isDone} type="checkbox" />
-        <div class="checkmark"></div>
+        <div className="checkmark"></div>
       </label>
 
       <input disabled={isDone} className="subtask-item__title" value={title}></input>
@@ -22,8 +22,8 @@ const SubtaskItem = ({ title, isDone }) => {
 export const NewSubtaskButton = ({ onClick }) => {
   return (
     <div onClick={onClick} className="new-subtask">
-      <label class="container">
-        <div class="checkmark"></div>
+      <label className="container">
+        <div className="checkmark"></div>
       </label>
       <div>
         <div className="new-subtask__title">Добавить новую подзадачу</div>
@@ -36,8 +36,8 @@ export const NewSubtaskItem = ({ inputRef }) => {
   const [visibility, setVisibility] = useState(false);
   return (
     <div className={`new-subtask-item${!visibility ? ' hidden' : ''}`}>
-      <label class="container">
-        <div class="checkmark"></div>
+      <label className="container">
+        <div className="checkmark"></div>
       </label>
       <div>
         <input

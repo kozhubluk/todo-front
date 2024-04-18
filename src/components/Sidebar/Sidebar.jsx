@@ -10,19 +10,27 @@ import { ReactComponent as EditIcon } from '../../assets/svg/edit.svg';
 import { useRef, useState } from 'react';
 import { Dropdown, DropdownItem } from '../Dropdown/Dropdown';
 import ModalWrapper from '../Modal/ModalWrapper';
-import ListForm from '../ListForm/ListForm';
+import AddListModal from '../AddListModal/AddListModal';
+import { getModalHanlder } from '../../utils/getModalHanlder';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 
 const Sidebar = () => {
-  const [modal, setModal] = useState(false);
+  const [modals, setModals] = useState({
+    profile: false,
+    addList: false,
+    editList: false,
+    confirm: false,
+  });
+
+  const editListModal = getModalHanlder(modals, 'editList', setModals);
+  const addListModal = getModalHanlder(modals, 'addList', setModals);
+  const confirmModal = getModalHanlder(modals, 'confirm', setModals);
+
   const [currentList, setCurrentList] = useState({});
 
-  const openModal = (list) => {
+  const listItemHandler = (list) => {
     setCurrentList(list);
-    setModal(true);
-  };
-
-  const closeModal = () => {
-    setModal(false);
+    editListModal.open();
   };
 
   return (
@@ -40,16 +48,39 @@ const Sidebar = () => {
           <MenuItem to="/all" icon={<TasksIcon />} title="Все задачи" />
           <li className="sidebar__header">
             <div className="sidebar__header-title">Мои списки</div>
-            <button className="sidebar__add-button">+</button>
+            <button className="sidebar__add-button" onClick={addListModal.open}>
+              +
+            </button>
           </li>
-          <ListItem editHandler={openModal} onDelete={null} id={1} title={'Важное!!'} />
-          <ListItem editHandler={openModal} onDelete={null} id={2} title={'ОСТ'} />
-          <ListItem editHandler={openModal} onDelete={null} id={3} title={'Учеба'} />
+          <ListItem
+            editHandler={listItemHandler}
+            deleteHandler={confirmModal.open}
+            id={1}
+            title={'Важное!!'}
+          />
+          <ListItem
+            editHandler={listItemHandler}
+            deleteHandler={confirmModal.open}
+            id={2}
+            title={'ОСТ'}
+          />
         </ul>
       </div>
-      <ModalWrapper active={modal} closeModal={closeModal}>
-        <ListForm data={currentList} cancelHandler={closeModal}></ListForm>
-      </ModalWrapper>
+      <AddListModal
+        data={currentList}
+        cancelHandler={editListModal.close}
+        active={editListModal.isOpen}
+        closeModal={editListModal.close}
+      />
+      <AddListModal
+        cancelHandler={addListModal.close}
+        active={addListModal.isOpen}
+        closeModal={addListModal.close}
+      />
+      <ConfirmModal active={confirmModal.isOpen} closeModal={confirmModal.close}>
+        Вы уврены, что хотите удалить этот список? Задачи, принадлежащие списку, будут так же
+        удалены.
+      </ConfirmModal>
     </div>
   );
 };
@@ -69,7 +100,7 @@ const MenuItem = ({ to, icon, title }) => {
   );
 };
 
-const ListItem = ({ id, title, editHandler }) => {
+const ListItem = ({ id, title, editHandler, deleteHandler }) => {
   const [active, setActive] = useState(false);
   const buttonRef = useRef();
 
@@ -108,7 +139,14 @@ const ListItem = ({ id, title, editHandler }) => {
           iconLeft={<EditIcon />}>
           Изменить
         </DropdownItem>
-        <DropdownItem iconLeft={<DeleteIcon />}>Удалить</DropdownItem>
+        <DropdownItem
+          actionHandler={() => {
+            deleteHandler();
+            setActive(false);
+          }}
+          iconLeft={<DeleteIcon />}>
+          Удалить
+        </DropdownItem>
       </Dropdown>
     </li>
   );

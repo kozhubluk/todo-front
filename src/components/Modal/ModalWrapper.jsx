@@ -1,16 +1,19 @@
 import './ModalWrapper.scss';
-import { ReactComponent as CloseIcon } from '../../assets/svg/close.svg';
+import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
+import { useRef } from 'react';
 
-const ModalWrapper = ({ active, openModal, closeModal, children }) => {
+const ModalWrapper = ({ active, closeModal, children }) => {
+  const modalBox = useRef(null);
+  console.log(modalBox);
   return (
-    <div className={`modal${active ? ' active' : ''}`} onClick={closeModal}>
-      <div
-        className={`modal__box${active ? ' active' : ''}`}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}>
+    <div
+      className={`modal${active ? ' active' : ''}`}
+      onClick={(e) => {
+        e.target === e.currentTarget && closeModal();
+      }}>
+      <div ref={modalBox} className={`modal__box${active ? ' active' : ''}`}>
         <div className="modal__close-button" onClick={closeModal}>
-          <CloseIcon />
+          <XmarkIcon />
         </div>
 
         {children}

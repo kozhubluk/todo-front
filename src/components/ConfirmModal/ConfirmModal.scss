@@ -1,0 +1,12 @@
+@import '../../styles//colors.scss';
+
+.confirm-modal {
+  max-width: 400px;
+  &__content {
+    padding: 20px 20px 30px 20px;
+  }
+  &__message {
+    font-weight: 200;
+    font-size: 16px;
+  }
+}

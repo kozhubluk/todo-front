@@ -3,19 +3,24 @@ import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
 
 const priorityClasses = ['', 'low', 'medium', 'high'];
 
-const TodoItem = ({ title, list, priority, isDone }) => {
+const TodoItem = ({ title, list, priority, isDone, actionHandler, deleteHandler }) => {
   return (
-    <div className={`todo-item${isDone ? ' done' : ''}`}>
-      <label class={`container ${priorityClasses[priority]}`}>
+    <div onClick={actionHandler} className={`todo-item${isDone ? ' done' : ''}`}>
+      <label className={`container ${priorityClasses[priority]}`}>
         <input checked={isDone} type="checkbox" />
-        <div class="checkmark"></div>
+        <div className="checkmark"></div>
       </label>
       <div>
-        <span className="list-name">{list}</span>
+        <span className="todo-item__list-name">{list}</span>
         <label className="todo-item__title">{title}</label>
       </div>
 
-      <div className="delete-button">
+      <div
+        className="delete-button"
+        onClick={(e) => {
+          e.stopPropagation();
+          deleteHandler();
+        }}>
         <XmarkIcon />
       </div>
     </div>

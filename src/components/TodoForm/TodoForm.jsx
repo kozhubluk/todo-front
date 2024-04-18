@@ -9,6 +9,7 @@ import { Dropdown } from '../Dropdown/Dropdown';
 import PriorityDropdown from '../PriorityDropdown/PriorityDropdown';
 import ListModal from '../ListModal/ListModal';
 import SubtaskItem, { NewSubtaskButton, NewSubtaskItem } from '../SubtaskItem/SubtaskItem';
+import { getModalHanlder } from '../../utils/getModalHanlder';
 
 const TodoForm = ({ priority, title, notes }) => {
   const [value, setValue] = useState(dayjs());
@@ -20,21 +21,12 @@ const TodoForm = ({ priority, title, notes }) => {
 
   const subtaskInput = useRef(null);
 
-  const getModalHanlder = (modalName) => {
-    return {
-      isOpen: modals[modalName],
-      open: () => setModals((state) => ({ ...state, [modalName]: true })),
-      close: () => setModals((state) => ({ ...state, [modalName]: false })),
-      toggle: () => setModals((state) => ({ ...state, [modalName]: !state[modalName] })),
-    };
-  };
-
   const calendarButton = useRef(null);
   const priorityButton = useRef(null);
 
-  const calendarDropdown = getModalHanlder('calendar');
-  const listModal = getModalHanlder('list');
-  const priorityDropdown = getModalHanlder('prioroty');
+  const calendarDropdown = getModalHanlder(modals, 'calendar', setModals);
+  const listModal = getModalHanlder(modals, 'list', setModals);
+  const priorityDropdown = getModalHanlder(modals, 'prioroty', setModals);
 
   return (
     <div className="todo-form">
@@ -68,7 +60,7 @@ const TodoForm = ({ priority, title, notes }) => {
         </div>
       </div>
       <div>
-        <label for="notes" className="todo-form__label">
+        <label htmlFor="notes" className="todo-form__label">
           Описание
         </label>
         <textarea name="notes" className="todo-form__input"></textarea>

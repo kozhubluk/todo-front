@@ -20,6 +20,11 @@
   border: $dark-grey 1px solid;
   align-items: center;
   grid-template-columns: 40px auto 20px;
+  &__list-name {
+    font-size: 14px;
+    color: $light-grey;
+    line-height: 1.6;
+  }
   &:hover {
     background-color: $grey;
     border-color: $grey;
@@ -27,6 +32,7 @@
   lable {
     font-size: 16px;
     line-height: 1;
+
     font-weight: 400;
     color: $white;
   }

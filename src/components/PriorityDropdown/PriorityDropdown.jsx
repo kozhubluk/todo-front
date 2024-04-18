@@ -9,7 +9,6 @@ const priorities = [
 ];
 
 const PriorityDropdown = (props) => {
-  console.log(priorities);
   return (
     <Dropdown {...props}>
       {priorities.map((item) => (
