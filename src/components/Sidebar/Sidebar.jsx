@@ -43,7 +43,7 @@ const Sidebar = () => {
           <div className="sidebar__username">Avdeeva Anast...</div>
         </div>
         <ul className="sidebar__menu">
-          <MenuItem to="/" icon={<TodayIcon />} title="Сегодня" />
+          <MenuItem to="/today" icon={<TodayIcon />} title="Сегодня" />
           <MenuItem to="/week" icon={<WeekIcon />} title="Следующие 7 дней" />
           <MenuItem to="/all" icon={<TasksIcon />} title="Все задачи" />
           <li className="sidebar__header">
@@ -107,7 +107,7 @@ const ListItem = ({ id, title, editHandler, deleteHandler }) => {
   return (
     <li className="sidebar__item">
       <NavLink
-        to={`tasks/${id}`}
+        to={`/tasks/${id}`}
         className={({ isActive }) =>
           isActive ? 'sidebar__item-link active' : 'sidebar__item-link'
         }>
