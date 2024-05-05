@@ -1,0 +1,64 @@
+@import '../../styles/colors.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  &__input-line {
+    max-width: 100%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid $light-grey;
+    &:focus-within {
+      border-color: $white;
+    }
+  }
+
+  &__input-wrapper {
+    label {
+      font-size: 12px;
+      &::first-letter {
+        text-transform: uppercase;
+      }
+    }
+
+    input {
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
+
+  &__input-error {
+    color: $red;
+    font-size: 16px;
+  }
+
+  &__button {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: $main-blue;
+    border-radius: 6px;
+    padding: 12px;
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+}

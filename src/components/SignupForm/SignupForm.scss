@@ -1,0 +1,14 @@
+@import '../../styles/colors.scss';
+
+.signup {
+  &__link {
+    text-align: center;
+    font-weight: 100;
+    margin-top: 30px;
+    border-top: 1px solid $light-grey;
+    padding-top: 5px;
+    a {
+      text-decoration: underline;
+    }
+  }
+}

@@ -4,6 +4,8 @@ import TodayPage from '../Pages/Today/Today';
 import AllTasks from '../Pages/AllTask/AllTasks';
 import StartPage from '../Pages/StartPage/StartPage';
 import Week from '../Pages/Week/Week';
+
+import Signup from '../Pages/Signup/Signup';
 import Login from '../Pages/Login/Login';
 
 function App() {
@@ -12,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<StartPage />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/today" element={<TodayPage />} />
         <Route path="/week" element={<Week />} />
         <Route path="/all" element={<AllTasks />} />
