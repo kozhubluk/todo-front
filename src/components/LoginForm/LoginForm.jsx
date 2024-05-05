@@ -7,14 +7,14 @@ import { validateEmail, validatePassword } from '../../utils/validation/signupVa
 
 const LoginForm = () => {
   return (
-    <div className="signup">
+    <div className="form-container">
       <FormWrapper title="Войти">
         <Formik
-          initialValues={{ username: '', name: '', password: '', confirmPassword: '' }}
+          initialValues={{ email: '', password: '' }}
           onSubmit={(values, { setSubmitting }) => {
             console.log('33');
           }}>
-          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          {({ errors, touched, isValid }) => (
             <Form>
               <Field
                 title="email"
@@ -35,12 +35,16 @@ const LoginForm = () => {
                 placeholder="Введите пароль"
               />
 
-              <FormButton type="submit" disabled={isSubmitting} value="Войти" />
+              <FormButton
+                type="submit"
+                disabled={!isValid || Object.keys(touched).length < 1}
+                value="Войти"
+              />
             </Form>
           )}
         </Formik>
       </FormWrapper>
-      <div className="signup__link">
+      <div className="form-container__link">
         Еще нет аккаунта? Тогда <Link to="/signup">зарегистрируйтесь</Link>
       </div>
     </div>

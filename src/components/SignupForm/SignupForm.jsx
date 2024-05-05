@@ -13,14 +13,14 @@ import { Link } from 'react-router-dom';
 
 const SignupForm = () => {
   return (
-    <div className="signup">
+    <div className="form-container">
       <FormWrapper title="Зарегистрироваться">
         <Formik
-          initialValues={{ username: '', name: '', password: '', confirmPassword: '' }}
+          initialValues={{ email: '', name: '', password: '', confirmPassword: '' }}
           onSubmit={(values, { setSubmitting }) => {
             console.log('33');
           }}>
-          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          {({ errors, touched, values, isValid }) => (
             <Form>
               <Field
                 title="email"
@@ -59,14 +59,14 @@ const SignupForm = () => {
               />
               <FormButton
                 type="submit"
-                disabled={isSubmitting}
+                disabled={!isValid || Object.keys(touched).length < 1}
                 value="Зарегистрироваться через Email"
               />
             </Form>
           )}
         </Formik>
       </FormWrapper>
-      <div className="signup__link">
+      <div className="form-container__link">
         Уже есть аккаунт? Тогда <Link to="/login">войдите</Link>
       </div>
     </div>

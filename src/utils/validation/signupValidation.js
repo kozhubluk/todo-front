@@ -5,7 +5,6 @@ export const validateEmail = (value) => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
     error = 'Некорректный email-адрес';
   }
-
   return error;
 };
 
@@ -35,7 +34,7 @@ export const validatePassword = (value) => {
 
 export const validateConfirmPassword = (password, value) => {
   let error;
-  if (password && value) {
+  if (password || value) {
     if (password !== value) {
       error = 'Пароли не совпадают';
     }

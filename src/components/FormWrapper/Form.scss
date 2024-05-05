@@ -57,8 +57,18 @@
     background-color: $main-blue;
     border-radius: 6px;
     padding: 12px;
+
     &:hover {
       filter: brightness(1.2);
+    }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.75;
+
+      &:hover {
+        filter: brightness(1);
+      }
     }
   }
 }
