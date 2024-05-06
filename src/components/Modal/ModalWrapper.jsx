@@ -4,7 +4,6 @@ import { useRef } from 'react';
 
 const ModalWrapper = ({ active, closeModal, children }) => {
   const modalBox = useRef(null);
-  console.log(modalBox);
   return (
     <div
       className={`modal${active ? ' active' : ''}`}

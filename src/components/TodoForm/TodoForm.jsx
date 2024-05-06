@@ -33,7 +33,10 @@ const TodoForm = ({ priority, title, notes }) => {
       <input type="text" className="todo-form__title" value="вынести мусор" />
       <div className="todo-form__buttons">
         <div className="todo-form__button-container">
-          <button ref={calendarButton} onClick={calendarDropdown.toggle}>
+          <button
+            className="deadline-button"
+            ref={calendarButton}
+            onClick={calendarDropdown.toggle}>
             <CalendarIcon /> Дедлайн
           </button>
           <Dropdown
@@ -44,12 +47,15 @@ const TodoForm = ({ priority, title, notes }) => {
           </Dropdown>
         </div>
 
-        <button onClick={listModal.open}>
+        <button className="list-button" onClick={listModal.open}>
           <ListIcon />
           ОСТ
         </button>
         <div className="todo-form__button-container">
-          <button ref={priorityButton} onClick={priorityDropdown.toggle}>
+          <button
+            className="priority-button"
+            ref={priorityButton}
+            onClick={priorityDropdown.toggle}>
             <FlagIcon className="high" /> Приоритет
           </button>
           <PriorityDropdown

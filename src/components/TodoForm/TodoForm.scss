@@ -19,28 +19,11 @@
     gap: 10px;
     margin-bottom: 15px;
   }
+
   &__button-container {
     position: relative;
   }
-  &__buttons button {
-    transition: 0.2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 10px;
-    background-color: $grey;
-    border-radius: 20px;
-    &:hover {
-      background-color: $light-grey;
-    }
-    svg {
-      width: 24px;
-    }
-    path {
-      stroke: $main-blue;
-    }
-  }
+
   label {
     color: $light-grey;
     text-transform: uppercase;
@@ -58,31 +41,5 @@
     display: grid;
     display: column;
     gap: 10px;
-  }
-}
-
-svg {
-  &.default {
-    path {
-      stroke: $main-blue;
-    }
-  }
-
-  &.low {
-    path {
-      stroke: $green;
-    }
-  }
-
-  &.medium {
-    path {
-      stroke: $orange;
-    }
-  }
-
-  &.high {
-    path {
-      stroke: $red;
-    }
   }
 }

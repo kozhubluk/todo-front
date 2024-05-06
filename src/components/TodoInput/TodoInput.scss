@@ -1,0 +1,57 @@
+@import '../../styles/colors.scss';
+
+.search-line {
+  border: 1px solid $grey;
+  border-radius: 10px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr;
+  grid-row: 1fr 1fr;
+
+  & > * {
+    padding: 6px 10px;
+  }
+
+  &__title-input {
+    font-weight: 400;
+  }
+
+  &__notes-input {
+    font-size: 14px;
+    font-weight: 200;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 4px;
+  }
+
+  &__button-container {
+    position: relative;
+  }
+
+  &__bottom-panel {
+    border-top: 1px solid $grey;
+    padding: 10px;
+
+    button {
+      padding: 4px 10px;
+      justify-self: end;
+      background-color: $main-blue;
+      border-radius: 4px;
+      font-weight: 400;
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+
+      &:disabled {
+        opacity: 0.9;
+      }
+    }
+  }
+
+  &:focus-within {
+    border-color: $light-grey;
+  }
+}

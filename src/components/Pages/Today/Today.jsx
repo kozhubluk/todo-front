@@ -6,6 +6,7 @@ import './Today.scss';
 import { getModalHanlder } from '../../../utils/getModalHanlder';
 import ConfirmModal from '../../ConfirmModal/ConfirmModal';
 import Wrapper from '../../Wrapper/Wrapper';
+import TodoInput from '../../TodoInput/TodoInput';
 
 const TodayPage = () => {
   const [modals, setModals] = useState({
@@ -25,6 +26,7 @@ const TodayPage = () => {
   return (
     <Wrapper>
       <div className="today-container">
+        <TodoInput />
         <h1>Сегодня</h1>
         <TodoItem
           actionHandler={editTodoModal.open}

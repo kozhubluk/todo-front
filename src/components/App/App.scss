@@ -213,3 +213,52 @@ textarea {
 .error-message {
   color: $red;
 }
+
+.list-button,
+.priority-button,
+.deadline-button {
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  height: fit-content;
+  padding: 4px 10px;
+  background-color: $grey;
+  border-radius: 20px;
+  &:hover {
+    background-color: $light-grey;
+  }
+  svg {
+    width: 24px;
+  }
+  path {
+    stroke: $main-blue;
+  }
+}
+
+svg {
+  &.default {
+    path {
+      stroke: $main-blue;
+    }
+  }
+
+  &.low {
+    path {
+      stroke: $green;
+    }
+  }
+
+  &.medium {
+    path {
+      stroke: $orange;
+    }
+  }
+
+  &.high {
+    path {
+      stroke: $red;
+    }
+  }
+}

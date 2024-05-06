@@ -7,6 +7,7 @@ import Week from '../Pages/Week/Week';
 
 import Signup from '../Pages/Signup/Signup';
 import Login from '../Pages/Login/Login';
+import ProtectedRoute from './ProtectedRoute';
 
 function App() {
   return (
@@ -15,9 +16,11 @@ function App() {
         <Route path="/" element={<StartPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/today" element={<TodayPage />} />
-        <Route path="/week" element={<Week />} />
-        <Route path="/all" element={<AllTasks />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/today" element={<TodayPage />} />
+          <Route path="/week" element={<Week />} />
+          <Route path="/all" element={<AllTasks />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
