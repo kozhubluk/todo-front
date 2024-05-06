@@ -55,11 +55,13 @@
     font-size: 16px;
     font-weight: 600;
     background-color: $main-blue;
+    transition: 0.15s;
     border-radius: 6px;
-    padding: 12px;
+    padding: 2px;
+    min-height: 50px;
 
     &:hover {
-      filter: brightness(1.2);
+      filter: brightness(1.15);
     }
 
     &:disabled {

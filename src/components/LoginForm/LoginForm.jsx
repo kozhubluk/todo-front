@@ -2,20 +2,42 @@ import { Field, Form, Formik } from 'formik';
 import FormWrapper from '../FormWrapper/FormWrapper';
 import FormInput from '../FormWrapper/FormInput';
 import FormButton from '../FormWrapper/FormButton';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../../utils/validation/signupValidation';
+import { useLoginMutation } from '../../redux/slices/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../../redux/slices/authSlice';
+import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 const LoginForm = () => {
+  const [login, { isLoading }] = useLoginMutation();
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <div className="form-container">
       <FormWrapper title="Войти">
         <Formik
           initialValues={{ email: '', password: '' }}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log('33');
+          onSubmit={async (values) => {
+            try {
+              const data = await login({
+                username: values.email,
+                password: values.password,
+              }).unwrap();
+              setErrorMessage(null);
+              dispatch(setCredentials({ accessToken: data.accessToken }));
+              navigate('/today');
+            } catch (error) {
+              setErrorMessage(error.data.message);
+            }
           }}>
-          {({ errors, touched, isValid }) => (
+          {({ touched, isValid }) => (
             <Form>
+              {errorMessage && <div className="error-message">{errorMessage}</div>}
               <Field
                 title="email"
                 name="email"
@@ -24,10 +46,8 @@ const LoginForm = () => {
                 component={FormInput}
                 placeholder="Введите email-адерс..."
               />
-
               <Field
                 title="Пароль"
-                autocomplete="off"
                 name="password"
                 type="password"
                 validate={validatePassword}
@@ -37,9 +57,9 @@ const LoginForm = () => {
 
               <FormButton
                 type="submit"
-                disabled={!isValid || Object.keys(touched).length < 1}
-                value="Войти"
-              />
+                disabled={!isValid || Object.keys(touched).length < 1 || isLoading}>
+                {isLoading ? <CircularProgress size="30px" color="inherit" /> : 'Войти'}
+              </FormButton>
             </Form>
           )}
         </Formik>

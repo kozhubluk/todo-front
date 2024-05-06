@@ -5,8 +5,8 @@ const FormInput = ({
 }) => (
   <div className="form__input-wrapper">
     <div className="form__input-line">
-      <label for={field.name}>{props.title}</label>
-      <input autocomplete="off" {...field} {...props} />
+      <label htmlFor={field.name}>{props.title}</label>
+      <input {...field} {...props} />
     </div>
     {touched[field.name] && <div className="form__input-error">{errors[field.name]}</div>}
   </div>

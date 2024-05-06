@@ -9,19 +9,38 @@ import {
   validateName,
   validatePassword,
 } from '../../utils/validation/signupValidation';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSignupMutation } from '../../redux/slices/authApiSlice';
+import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
 
 const SignupForm = () => {
+  const [signup, { isLoading }] = useSignupMutation();
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+
   return (
     <div className="form-container">
       <FormWrapper title="Зарегистрироваться">
         <Formik
           initialValues={{ email: '', name: '', password: '', confirmPassword: '' }}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log('33');
+          onSubmit={async (values) => {
+            try {
+              await signup({
+                username: values.email,
+                name: values.name,
+                password: values.password,
+                confirmPassword: values.confirmPassword,
+              }).unwrap();
+              setErrorMessage(null);
+              navigate('/login');
+            } catch (error) {
+              setErrorMessage(error.data.message);
+            }
           }}>
-          {({ errors, touched, values, isValid }) => (
+          {({ touched, values, isValid }) => (
             <Form>
+              {errorMessage && <div className="error-message">{errorMessage}</div>}
               <Field
                 title="email"
                 name="email"
@@ -48,7 +67,6 @@ const SignupForm = () => {
               />
               <Field
                 title="Подтвердите пароль"
-                autocomplete="off"
                 type="password"
                 name="confirmPassword"
                 validate={(value) => {
@@ -59,9 +77,10 @@ const SignupForm = () => {
               />
               <FormButton
                 type="submit"
-                disabled={!isValid || Object.keys(touched).length < 1}
-                value="Зарегистрироваться через Email"
-              />
+                disabled={!isValid || Object.keys(touched).length < 1 || isLoading}
+                value="Зарегистрироваться через Email">
+                {isLoading ? <CircularProgress size="30px" color="inherit" /> : 'Войти'}
+              </FormButton>
             </Form>
           )}
         </Formik>
