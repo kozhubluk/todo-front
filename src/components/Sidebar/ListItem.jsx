@@ -5,7 +5,7 @@ import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dropdown, DropdownItem } from '../Dropdown/Dropdown';
 
-const ListItem = ({ id, title, editHandler, deleteHandler }) => {
+const ListItem = ({ data: { id, title }, editHandler, deleteHandler }) => {
   const [active, setActive] = useState(false);
   const buttonRef = useRef();
 
@@ -29,6 +29,7 @@ const ListItem = ({ id, title, editHandler, deleteHandler }) => {
           </div>
         </div>
       </NavLink>
+
       <Dropdown
         active={active}
         position="right"

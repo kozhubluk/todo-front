@@ -1,7 +1,15 @@
+import { Box, CircularProgress } from '@mui/material';
 import ModalWrapper from '../Modal/ModalWrapper';
 import './ConfirmModal.scss';
 
-const ConfirmModal = ({ active, closeModal, children, confirmHandler, cancelHandler }) => {
+const ConfirmModal = ({
+  active,
+  closeModal,
+  children,
+  confirmHandler,
+  cancelHandler,
+  isLoading,
+}) => {
   return (
     <ModalWrapper active={active} closeModal={closeModal}>
       <div className="confirm-modal">
@@ -11,7 +19,13 @@ const ConfirmModal = ({ active, closeModal, children, confirmHandler, cancelHand
         </div>
         <div className="modal-buttons">
           <button onClick={cancelHandler}>Отмена</button>
-          <button onClick={confirmHandler}>Подтвердить</button>
+          {isLoading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress size="20px" />
+            </Box>
+          ) : (
+            <button onClick={confirmHandler}>Подтвердить</button>
+          )}
         </div>
       </div>
     </ModalWrapper>
