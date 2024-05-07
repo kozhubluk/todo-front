@@ -2,7 +2,7 @@ import ModalWrapper from '../Modal/ModalWrapper';
 import './ListForm.scss';
 import { useEffect, useState } from 'react';
 
-const AddListModal = ({ active, closeModal, data, cancelHandler }) => {
+const AddListModal = ({ active, closeModal, data, cancelHandler, saveHandler }) => {
   const [title, setTitle] = useState('');
   useEffect(() => {
     if (data && data.title) {
@@ -17,14 +17,18 @@ const AddListModal = ({ active, closeModal, data, cancelHandler }) => {
           <label htmlFor="listName" className="modal-header">
             название списка
           </label>
-          <input
-            name="listName"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title && title.trim()}></input>
+          <input name="listName" onChange={(e) => setTitle(e.target.value)} value={title}></input>
         </div>
         <div className="modal-buttons">
           <button onClick={cancelHandler}>Отмена</button>
-          <button disabled={!title}>Сохранить</button>
+          <button
+            onClick={() => {
+              saveHandler({ title: title.trim() });
+              setTitle('');
+            }}
+            disabled={!title.trim()}>
+            Сохранить
+          </button>
         </div>
       </div>
     </ModalWrapper>

@@ -17,9 +17,7 @@ const baseQuery = fetchBaseQuery({
 const customBaseQuery = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.originalStatus === 401) {
-    console.log('need refresh token');
-  } else {
+  if (result?.error?.status === 401) {
     api.dispatch(logout());
   }
 
@@ -29,5 +27,6 @@ const customBaseQuery = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: 'baseApi',
   baseQuery: customBaseQuery,
+  tagTypes: ['Todo', 'List', 'Subtask', 'User'],
   endpoints: (builder) => ({}),
 });

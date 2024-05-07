@@ -1,20 +1,25 @@
-import { NavLink } from 'react-router-dom';
 import './Sidebar.scss';
 import { ReactComponent as SettingIcon } from '../../assets/svg/gear.svg';
 import { ReactComponent as TodayIcon } from '../../assets/svg/today.svg';
 import { ReactComponent as WeekIcon } from '../../assets/svg/week.svg';
 import { ReactComponent as TasksIcon } from '../../assets/svg/tasks.svg';
-import { ReactComponent as MoreIcon } from '../../assets/svg/more.svg';
-import { ReactComponent as DeleteIcon } from '../../assets/svg/delete.svg';
-import { ReactComponent as EditIcon } from '../../assets/svg/edit.svg';
-import { useRef, useState } from 'react';
-import { Dropdown, DropdownItem } from '../Dropdown/Dropdown';
-import ModalWrapper from '../Modal/ModalWrapper';
+
+import { useState } from 'react';
 import AddListModal from '../AddListModal/AddListModal';
 import { getModalHanlder } from '../../utils/getModalHanlder';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import {
+  useAddListMutation,
+  useDeleteListMutation,
+  useGetListsQuery,
+  useUpdateListMutation,
+} from '../../redux/slices/listApiSlice';
+import MenuItem from './MenuItem';
+import ListItem from './ListItem';
 
 const Sidebar = () => {
+  // модальные окна и дропдауны
+
   const [modals, setModals] = useState({
     profile: false,
     addList: false,
@@ -33,6 +38,11 @@ const Sidebar = () => {
     editListModal.open();
   };
 
+  // списки
+  const [addList, { isLoading, isError }] = useAddListMutation();
+  const [deleteList] = useDeleteListMutation();
+  const [updateList] = useUpdateListMutation();
+  const { data: lists, isLoading: listsIsLoading } = useGetListsQuery();
   return (
     <div className="sidebar">
       <div className="sidebar__container">
@@ -52,103 +62,50 @@ const Sidebar = () => {
               +
             </button>
           </li>
-          <ListItem
-            editHandler={listItemHandler}
-            deleteHandler={confirmModal.open}
-            id={1}
-            title={'Важное!!'}
-          />
-          <ListItem
-            editHandler={listItemHandler}
-            deleteHandler={confirmModal.open}
-            id={2}
-            title={'ОСТ'}
-          />
+          {!listsIsLoading &&
+            lists.map((list) => (
+              <ListItem
+                editHandler={listItemHandler}
+                deleteHandler={() => {
+                  setCurrentList(list);
+                  confirmModal.open();
+                }}
+                id={list.id}
+                title={list.title}
+              />
+            ))}
         </ul>
       </div>
       <AddListModal
+        saveHandler={async (body) => {
+          updateList({ id: currentList.id, body }).unwrap();
+          editListModal.close();
+        }}
         data={currentList}
         cancelHandler={editListModal.close}
         active={editListModal.isOpen}
         closeModal={editListModal.close}
       />
       <AddListModal
+        saveHandler={async (body) => {
+          addList(body).unwrap();
+          addListModal.close();
+        }}
         cancelHandler={addListModal.close}
         active={addListModal.isOpen}
         closeModal={addListModal.close}
       />
-      <ConfirmModal active={confirmModal.isOpen} closeModal={confirmModal.close}>
+      <ConfirmModal
+        active={confirmModal.isOpen}
+        confirmHandler={() => {
+          deleteList(currentList.id);
+          confirmModal.close();
+        }}
+        closeModal={confirmModal.close}>
         Вы уврены, что хотите удалить этот список? Задачи, принадлежащие списку, будут так же
         удалены.
       </ConfirmModal>
     </div>
-  );
-};
-
-const MenuItem = ({ to, icon, title }) => {
-  return (
-    <li className="sidebar__item">
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? 'sidebar__item-link active' : 'sidebar__item-link'
-        }
-        to={to}>
-        <div className="sidebar__item-icon">{icon}</div>
-        <div className="sidebar__item-title">{title}</div>
-      </NavLink>
-    </li>
-  );
-};
-
-const ListItem = ({ id, title, editHandler, deleteHandler }) => {
-  const [active, setActive] = useState(false);
-  const buttonRef = useRef();
-
-  return (
-    <li className="sidebar__item">
-      <NavLink
-        to={`/tasks/${id}`}
-        className={({ isActive }) =>
-          isActive ? 'sidebar__item-link active' : 'sidebar__item-link'
-        }>
-        <div className="sidebar__item-title">{title}</div>
-        <div className="more">
-          <div className="more-icon">
-            <MoreIcon
-              ref={buttonRef}
-              onClick={(e) => {
-                e.preventDefault();
-                setActive((prev) => !prev);
-              }}
-            />
-          </div>
-        </div>
-      </NavLink>
-      <Dropdown
-        active={active}
-        position="right"
-        closeDropdown={() => {
-          setActive((prev) => false);
-        }}
-        button={buttonRef}>
-        <DropdownItem
-          actionHandler={() => {
-            editHandler({ id, title });
-            setActive(false);
-          }}
-          iconLeft={<EditIcon />}>
-          Изменить
-        </DropdownItem>
-        <DropdownItem
-          actionHandler={() => {
-            deleteHandler();
-            setActive(false);
-          }}
-          iconLeft={<DeleteIcon />}>
-          Удалить
-        </DropdownItem>
-      </Dropdown>
-    </li>
   );
 };
 

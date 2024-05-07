@@ -3,10 +3,13 @@
 .sidebar {
   width: 260px;
   display: flex;
+
   flex-direction: column;
   z-index: 2000;
 
   &__container {
+    overflow: scroll;
+    overflow-x: hidden;
     z-index: 1900;
     padding: 10px 0;
     position: fixed;
@@ -69,6 +72,7 @@
 
   &__menu {
     width: 100%;
+    padding-bottom: 100px;
   }
 
   &__item {
