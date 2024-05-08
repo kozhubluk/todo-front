@@ -20,6 +20,7 @@
   border: $dark-grey 1px solid;
   align-items: center;
   grid-template-columns: 40px auto 20px;
+  transition: 0.2s ease-in;
   &__list-name {
     font-size: 14px;
     color: $light-grey;
@@ -91,7 +92,7 @@
     height: 1em;
     width: 1em;
     border-radius: 50%;
-    transition: 300ms;
+    transition: 0.15s ease-in;
 
     &:after {
       content: '';

@@ -9,9 +9,17 @@ import { Dropdown } from '../Dropdown/Dropdown';
 import Calendar from '../Calendar/Calendar';
 import dayjs from 'dayjs';
 import ListModal from '../ListModal/ListModal';
+import { priorities } from '../../assets/priorities';
 
-const SearchLine = () => {
-  const [value, setValue] = useState(dayjs());
+const SearchLine = ({ AddTaskHandler }) => {
+  // данные формы
+  const [date, setDate] = useState(dayjs());
+  const [priority, setPriority] = useState(0);
+  const [list, setList] = useState(null);
+  const [title, setTitle] = useState('sdf');
+  const [notes, setNotes] = useState('sdf');
+
+  // модальные окна
   const [modals, setModals] = useState({
     calendar: false,
     list: false,
@@ -28,8 +36,22 @@ const SearchLine = () => {
   return (
     <>
       <div className="search-line">
-        <input placeholder="Название задачи" className="search-line__title-input"></input>
-        <input placeholder="Описание" className="search-line__notes-input"></input>
+        <input
+          placeholder="Название задачи"
+          className="search-line__title-input"
+          value={title}
+          onChange={(e) => {
+            setTitle(e.value);
+          }}
+        />
+        <input
+          placeholder="Описание"
+          className="search-line__notes-input"
+          value={notes}
+          onChange={(e) => {
+            setNotes(e.value);
+          }}
+        />
         <div className="search-line__buttons">
           <div className="search-line__button-container">
             <button
@@ -42,7 +64,7 @@ const SearchLine = () => {
               button={calendarButton}
               closeDropdown={calendarDropdown.close}
               active={calendarDropdown.isOpen}>
-              <Calendar value={value} />
+              <Calendar value={date} setValue={setDate} />
             </Dropdown>
           </div>
           <div className="search-line__button-container">
@@ -50,12 +72,14 @@ const SearchLine = () => {
               ref={priorityButton}
               className="priority-button"
               onClick={priorityDropdown.toggle}>
-              <FlagIcon className="medium" /> Приоритет
+              <FlagIcon className={priorities[priority].className} /> {priorities[priority].title}
             </button>
             <PriorityDropdown
               button={priorityButton}
               closeDropdown={priorityDropdown.close}
               active={priorityDropdown.isOpen}
+              priority={priority}
+              setPriority={setPriority}
             />
           </div>
           <button className="priority-button" onClick={listModal.open}>

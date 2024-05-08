@@ -7,42 +7,75 @@ import { getModalHanlder } from '../../../utils/getModalHanlder';
 import ConfirmModal from '../../ConfirmModal/ConfirmModal';
 import Wrapper from '../../Wrapper/Wrapper';
 import TodoInput from '../../TodoInput/TodoInput';
+import {
+  useAddTodoMutation,
+  useDeleteTodoMutation,
+  useGetTodosQuery,
+  useUpdateTodoMutation,
+} from '../../../redux/slices/todoApiSlice';
+import { useUpdateListMutation } from '../../../redux/slices/listApiSlice';
 
 const TodayPage = () => {
+  // Модальные окна
   const [modals, setModals] = useState({
     confirm: false,
     editTodo: false,
   });
 
-  const [currentTodo, setCurrentTodo] = useState({});
-
   const confirmModal = getModalHanlder(modals, 'confirm', setModals);
   const editTodoModal = getModalHanlder(modals, 'editTodo', setModals);
 
-  // const todoClickHandler = (todo) => {
-  //   setCurrentTodo(todo);
-  // };
+  // Текст для модального окна
+  const confirmModalText = 'Вы уверены, что хотите удалить задачу?';
+
+  // todo с которым производятся действия
+  const [currentTodo, setCurrentTodo] = useState(null);
+
+  // методы работы с todos
+  const { data, isLoading } = useGetTodosQuery();
+  const [addTodo, { isLoading: addIsLoading }] = useAddTodoMutation();
+  const [updateTodo, { isLoading: updateIsLoading }] = useUpdateTodoMutation();
+  const [deleteTodo, { isLoading: deleteIsLoading }] = useDeleteTodoMutation();
 
   return (
     <Wrapper>
       <div className="today-container">
         <TodoInput />
         <h1>Сегодня</h1>
-        <TodoItem
-          actionHandler={editTodoModal.open}
-          deleteHandler={confirmModal.open}
-          title="Сделать отчет по 9й работе"
-          list="ОСТ"
-          priority={0}
-          isDone={true}
-        />
-        <TodoItem title="Сделать отчет по 10й работе" list="ПИС" priority={0} isDone={false} />
-        <TodoItem title="Поступить в ранхигс" list="карьера" priority={3} isDone={false} />
+        {!isLoading &&
+          data.map((item) => (
+            <TodoItem
+              toggleHandler={() => {
+                updateTodo({ id: item.id, body: { completed: !item.completed } });
+              }}
+              title={item.title}
+              list={'sdfsdf'}
+              priority={item.priority}
+              updateIsLoading={updateIsLoading}
+              actionHandler={() => {
+                setCurrentTodo(item);
+                editTodoModal.open();
+              }}
+              isDone={item.completed}
+              deleteHandler={() => {
+                setCurrentTodo(item);
+                confirmModal.open();
+              }}
+            />
+          ))}
         <ModalWrapper active={editTodoModal.isOpen} closeModal={editTodoModal.close}>
           <TodoForm></TodoForm>
         </ModalWrapper>
-        <ConfirmModal active={confirmModal.isOpen} closeModal={confirmModal.close}>
-          Вы уверены, что хотите удалить задачу?
+        <ConfirmModal
+          active={confirmModal.isOpen}
+          closeModal={confirmModal.close}
+          confirmHandler={async () => {
+            await deleteTodo(currentTodo.id);
+            confirmModal.close();
+          }}
+          isLoading={deleteIsLoading}
+          cancelHandler={confirmModal.close}>
+          {confirmModalText}
         </ConfirmModal>
       </div>
     </Wrapper>

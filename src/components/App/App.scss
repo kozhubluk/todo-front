@@ -238,6 +238,15 @@ textarea {
 }
 
 svg {
+  &.default,
+  &.low,
+  &.medium,
+  &.high {
+    path {
+      transition: 0.3s;
+    }
+  }
+
   &.default {
     path {
       stroke: $main-blue;

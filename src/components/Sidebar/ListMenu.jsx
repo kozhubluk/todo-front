@@ -25,7 +25,7 @@ const ListMenu = () => {
   // Список к которому будут рименяться обновления
   const [currentList, setCurrentList] = useState({});
 
-  //
+  // текст можального окна
   const confirmModalText =
     'Вы уврены, что хотите удалить этот список? Задачи, принадлежащие списку, будут так же удалены.';
 
@@ -94,6 +94,7 @@ const ListMenu = () => {
           await deleteList(currentList.id);
           confirmModal.close();
         }}
+        cancelHandler={confirmModal.close}
         closeModal={confirmModal.close}
         isLoading={deleteIsLoading}>
         {confirmModalText}
