@@ -10,12 +10,15 @@ import Calendar from '../Calendar/Calendar';
 import dayjs from 'dayjs';
 import ListModal from '../ListModal/ListModal';
 import { priorities } from '../../assets/priorities';
+import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
+import { useGetListsQuery } from '../../redux/slices/listApiSlice';
+import { useAddTodoMutation } from '../../redux/slices/todoApiSlice';
 
 const SearchLine = ({ AddTaskHandler }) => {
   // данные формы
   const [date, setDate] = useState(dayjs());
   const [priority, setPriority] = useState(0);
-  const [list, setList] = useState(null);
+  const [list, setList] = useState({});
   const [title, setTitle] = useState('sdf');
   const [notes, setNotes] = useState('sdf');
 
@@ -33,6 +36,9 @@ const SearchLine = ({ AddTaskHandler }) => {
   const listModal = getModalHanlder(modals, 'list', setModals);
   const priorityDropdown = getModalHanlder(modals, 'prioroty', setModals);
 
+  const { data: lists } = useGetListsQuery();
+  const [addTodo] = useAddTodoMutation();
+
   return (
     <>
       <div className="search-line">
@@ -41,7 +47,7 @@ const SearchLine = ({ AddTaskHandler }) => {
           className="search-line__title-input"
           value={title}
           onChange={(e) => {
-            setTitle(e.value);
+            setTitle(e.target.value);
           }}
         />
         <input
@@ -49,7 +55,7 @@ const SearchLine = ({ AddTaskHandler }) => {
           className="search-line__notes-input"
           value={notes}
           onChange={(e) => {
-            setNotes(e.value);
+            setNotes(e.target.value);
           }}
         />
         <div className="search-line__buttons">
@@ -58,7 +64,7 @@ const SearchLine = ({ AddTaskHandler }) => {
               ref={calendarButton}
               onClick={calendarDropdown.toggle}
               className="deadline-button">
-              <CalendarIcon /> Дедлайн
+              <CalendarIcon /> {date.format(`DD.MM`)}
             </button>
             <Dropdown
               button={calendarButton}
@@ -83,14 +89,53 @@ const SearchLine = ({ AddTaskHandler }) => {
             />
           </div>
           <button className="priority-button" onClick={listModal.open}>
-            <ListIcon /> Список
+            <ListIcon />
+            {list.id ? (
+              <>
+                {list.title}
+                <XmarkIcon
+                  className="xmark"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setList({});
+                  }}
+                />
+              </>
+            ) : (
+              'Список'
+            )}
           </button>
         </div>
         <div className="search-line__bottom-panel">
-          <button>Добавить задачу</button>
+          <button
+            onClick={() => {
+              if (title.trim()) {
+                addTodo({
+                  title: title,
+                  notes,
+                  priority,
+                  deadline: date,
+                  folderId: list.id,
+                  completed: false,
+                });
+                setTitle('');
+                setNotes('');
+                setPriority(0);
+                setDate(dayjs());
+                setList({});
+              }
+            }}>
+            Добавить задачу
+          </button>
         </div>
       </div>
-      <ListModal active={listModal.isOpen} closeModal={listModal.close} />
+      <ListModal
+        data={lists}
+        list={list}
+        setList={setList}
+        active={listModal.isOpen}
+        closeModal={listModal.close}
+      />
     </>
   );
 };

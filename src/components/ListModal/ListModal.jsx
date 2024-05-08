@@ -7,8 +7,14 @@ const ListModal = (props) => {
       <div className="modal-list">
         <div className="modal-list__header">Выберите список</div>
         <ul>
-          <li className="modal-list__item active">Js dfd sddfsd fsdf sdf sdf CN</li>
-          <li className="modal-list__item">Lorem, ipsum.</li>
+          {props.data &&
+            props.data.map((list) => (
+              <li
+                className={`modal-list__item${list.id === props.list.id ? ' active' : ''}`}
+                onClick={() => props.setList(list)}>
+                {list.title}
+              </li>
+            ))}
         </ul>
       </div>
     </ModalWrapper>

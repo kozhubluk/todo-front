@@ -25,9 +25,9 @@ export const Dropdown = ({ active, closeDropdown, children, button, position = '
   );
 };
 
-export const DropdownItem = ({ children, iconLeft, iconRight, actionHandler }) => {
+export const DropdownItem = ({ key, children, iconLeft, iconRight, actionHandler }) => {
   return (
-    <li onClick={actionHandler} className="dropdown__item">
+    <li key={key} onClick={actionHandler} className="dropdown__item">
       <div className="dropdown__item-left-icon">{iconLeft}</div>
       <div className="dropdown__item-title">{children}</div>
       <div className="dropdown__item-right-icon">{iconRight}</div>

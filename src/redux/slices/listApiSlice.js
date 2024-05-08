@@ -30,7 +30,10 @@ export const listApiSlice = apiSlice.injectEndpoints({
         url: `/folders/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'List', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'List', id: 'LIST' },
+        { type: 'Todo', id: 'LIST' },
+      ],
     }),
   }),
 });

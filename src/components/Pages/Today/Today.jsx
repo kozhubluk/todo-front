@@ -13,7 +13,7 @@ import {
   useGetTodosQuery,
   useUpdateTodoMutation,
 } from '../../../redux/slices/todoApiSlice';
-import { useUpdateListMutation } from '../../../redux/slices/listApiSlice';
+import { useGetListsQuery, useUpdateListMutation } from '../../../redux/slices/listApiSlice';
 
 const TodayPage = () => {
   // Модальные окна
@@ -37,6 +37,9 @@ const TodayPage = () => {
   const [updateTodo, { isLoading: updateIsLoading }] = useUpdateTodoMutation();
   const [deleteTodo, { isLoading: deleteIsLoading }] = useDeleteTodoMutation();
 
+  // списк
+  const { data: lists, isLoading: listsIsLoading } = useGetListsQuery();
+
   return (
     <Wrapper>
       <div className="today-container">
@@ -49,7 +52,7 @@ const TodayPage = () => {
                 updateTodo({ id: item.id, body: { completed: !item.completed } });
               }}
               title={item.title}
-              list={'sdfsdf'}
+              list={item.folderId ? lists.find((list) => item.folderId === list.id)?.title : null}
               priority={item.priority}
               updateIsLoading={updateIsLoading}
               actionHandler={() => {

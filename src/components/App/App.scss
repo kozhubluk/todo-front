@@ -224,16 +224,28 @@ textarea {
   gap: 4px;
   height: fit-content;
   padding: 4px 10px;
-  background-color: $grey;
+  background-color: $dark-grey;
   border-radius: 20px;
   &:hover {
-    background-color: $light-grey;
+    background-color: $grey;
   }
   svg {
     width: 24px;
   }
   path {
     stroke: $main-blue;
+    transition: 0.2s;
+  }
+  .xmark {
+    width: 20px;
+    path {
+      fill: $light-grey;
+      stroke: $light-grey;
+      &:hover {
+        fill: $white;
+        stroke: $white;
+      }
+    }
   }
 }
 

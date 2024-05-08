@@ -7,16 +7,11 @@ const PriorityDropdown = (props) => {
     <Dropdown {...props}>
       {priorities.map((item, i) => (
         <DropdownItem
+          actionHandler={() => {
+            props.setPriority(i);
+          }}
           key={item.color}
-          iconLeft={
-            <FlagIcon
-              className={item.className}
-              onClick={() => {
-                props.setPriority(i);
-                console.log(props.priority);
-              }}
-            />
-          }>
+          iconLeft={<FlagIcon className={item.className} />}>
           {item.title}
         </DropdownItem>
       ))}
