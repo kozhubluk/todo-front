@@ -10,7 +10,8 @@ const ListModal = (props) => {
           {props.data &&
             props.data.map((list) => (
               <li
-                className={`modal-list__item${list.id === props.list.id ? ' active' : ''}`}
+                key={list.id}
+                className={`modal-list__item${list.id === props.listId ? ' active' : ''}`}
                 onClick={() => props.setList(list)}>
                 {list.title}
               </li>

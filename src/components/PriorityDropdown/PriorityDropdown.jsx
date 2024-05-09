@@ -10,7 +10,7 @@ const PriorityDropdown = (props) => {
           actionHandler={() => {
             props.setPriority(i);
           }}
-          key={item.color}
+          key={item.className}
           iconLeft={<FlagIcon className={item.className} />}>
           {item.title}
         </DropdownItem>

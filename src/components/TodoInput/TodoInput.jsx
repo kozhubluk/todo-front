@@ -19,8 +19,8 @@ const SearchLine = ({ AddTaskHandler }) => {
   const [date, setDate] = useState(dayjs());
   const [priority, setPriority] = useState(0);
   const [list, setList] = useState({});
-  const [title, setTitle] = useState('sdf');
-  const [notes, setNotes] = useState('sdf');
+  const [title, setTitle] = useState('');
+  const [notes, setNotes] = useState('');
 
   // модальные окна
   const [modals, setModals] = useState({
@@ -108,22 +108,21 @@ const SearchLine = ({ AddTaskHandler }) => {
         </div>
         <div className="search-line__bottom-panel">
           <button
+            disabled={!title.trim()}
             onClick={() => {
-              if (title.trim()) {
-                addTodo({
-                  title: title,
-                  notes,
-                  priority,
-                  deadline: date,
-                  folderId: list.id,
-                  completed: false,
-                });
-                setTitle('');
-                setNotes('');
-                setPriority(0);
-                setDate(dayjs());
-                setList({});
-              }
+              addTodo({
+                title,
+                notes,
+                priority,
+                deadline: date,
+                folderId: list.id,
+                completed: false,
+              });
+              setTitle('');
+              setNotes('');
+              setPriority(0);
+              setDate(dayjs());
+              setList({});
             }}>
             Добавить задачу
           </button>
@@ -131,7 +130,7 @@ const SearchLine = ({ AddTaskHandler }) => {
       </div>
       <ListModal
         data={lists}
-        list={list}
+        listId={list.id}
         setList={setList}
         active={listModal.isOpen}
         closeModal={listModal.close}

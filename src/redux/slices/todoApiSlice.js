@@ -9,6 +9,13 @@ export const todoApiSlice = apiSlice.injectEndpoints({
           ? [...result.map(({ id }) => ({ type: 'Todo', id })), { type: 'Todo', id: 'LIST' }]
           : [{ type: 'Todo', id: 'LIST' }],
     }),
+    getTodo: builder.query({
+      query: (id) => ({ url: `/todos/${id}` }),
+      providesTags: (result, error, arg) => [
+        { type: 'Todo', id: arg },
+        { type: 'Todo', id: 'LIST' },
+      ],
+    }),
     addTodo: builder.mutation({
       query: (body) => ({
         url: '/todos',
@@ -30,13 +37,17 @@ export const todoApiSlice = apiSlice.injectEndpoints({
         url: `/todos/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: [{ type: 'Todo', id: 'LIST' }],
+      invalidatesTags: [
+        { type: 'Todo', id: 'LIST' },
+        { type: 'Subtask', id: 'LIST' },
+      ],
     }),
   }),
 });
 
 export const {
   useGetTodosQuery,
+  useGetTodoQuery,
   useAddTodoMutation,
   useUpdateTodoMutation,
   useDeleteTodoMutation,

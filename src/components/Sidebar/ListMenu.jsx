@@ -47,6 +47,7 @@ const ListMenu = () => {
       {!isLoading &&
         lists.map((list) => (
           <ListItem
+            key={list.id}
             data={list}
             editHandler={() => {
               setCurrentList(list);

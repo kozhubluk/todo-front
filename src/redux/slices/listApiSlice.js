@@ -9,6 +9,13 @@ export const listApiSlice = apiSlice.injectEndpoints({
           ? [...result.map(({ id }) => ({ type: 'List', id })), { type: 'List', id: 'LIST' }]
           : [{ type: 'List', id: 'LIST' }],
     }),
+    getList: builder.query({
+      query: (id) => ({ url: `/folders/${id}` }),
+      providesTags: (result, error, id) => [
+        { type: 'List', id },
+        { type: 'Todo', id: 'LIST' },
+      ],
+    }),
     addList: builder.mutation({
       query: (body) => ({
         url: '/folders',

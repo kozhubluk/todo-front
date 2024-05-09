@@ -13,7 +13,7 @@ import {
   useGetTodosQuery,
   useUpdateTodoMutation,
 } from '../../../redux/slices/todoApiSlice';
-import { useGetListsQuery, useUpdateListMutation } from '../../../redux/slices/listApiSlice';
+import { useGetListsQuery } from '../../../redux/slices/listApiSlice';
 
 const TodayPage = () => {
   // Модальные окна
@@ -33,7 +33,6 @@ const TodayPage = () => {
 
   // методы работы с todos
   const { data, isLoading } = useGetTodosQuery();
-  const [addTodo, { isLoading: addIsLoading }] = useAddTodoMutation();
   const [updateTodo, { isLoading: updateIsLoading }] = useUpdateTodoMutation();
   const [deleteTodo, { isLoading: deleteIsLoading }] = useDeleteTodoMutation();
 
@@ -48,11 +47,16 @@ const TodayPage = () => {
         {!isLoading &&
           data.map((item) => (
             <TodoItem
+              key={item.id}
               toggleHandler={() => {
                 updateTodo({ id: item.id, body: { completed: !item.completed } });
               }}
               title={item.title}
-              list={item.folderId ? lists.find((list) => item.folderId === list.id)?.title : null}
+              list={
+                item.folderId && !listsIsLoading
+                  ? lists.find((list) => item.folderId === list.id)?.title
+                  : null
+              }
               priority={item.priority}
               updateIsLoading={updateIsLoading}
               actionHandler={() => {
@@ -66,8 +70,18 @@ const TodayPage = () => {
               }}
             />
           ))}
-        <ModalWrapper active={editTodoModal.isOpen} closeModal={editTodoModal.close}>
-          <TodoForm></TodoForm>
+        <ModalWrapper
+          active={editTodoModal.isOpen}
+          closeModal={() => {
+            editTodoModal.close();
+            setCurrentTodo(null);
+          }}>
+          <TodoForm
+            data={currentTodo}
+            updateTodo={(body) => {
+              updateTodo({ id: currentTodo.id, body });
+              editTodoModal.close();
+            }}></TodoForm>
         </ModalWrapper>
         <ConfirmModal
           active={confirmModal.isOpen}
