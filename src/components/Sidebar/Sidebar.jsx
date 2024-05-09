@@ -19,7 +19,7 @@ const Sidebar = () => {
         <ul className="sidebar__menu">
           <MenuItem to="/today" icon={<TodayIcon />} title="Сегодня" />
           <MenuItem to="/week" icon={<WeekIcon />} title="Следующие 7 дней" />
-          <MenuItem to="/all" icon={<TasksIcon />} title="Все задачи" />
+          <MenuItem to="/all" icon={<TasksIcon />} title="Выполненные" />
           <ListMenu />
         </ul>
       </div>

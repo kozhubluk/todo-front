@@ -19,6 +19,7 @@
     pointer-events: auto;
   }
   &__box {
+    max-width: 600px;
     transform: translateY(-50px);
     opacity: 0;
     transition: 0.15s;
@@ -42,6 +43,7 @@
     right: 8px;
     top: 8px;
     cursor: pointer;
+    z-index: 400;
     path {
       stroke: $white;
       fill: $white;

@@ -14,7 +14,6 @@ const ModalWrapper = ({ active, closeModal, children }) => {
         <div className="modal__close-button" onClick={closeModal}>
           <XmarkIcon />
         </div>
-
         {children}
       </div>
     </div>

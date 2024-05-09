@@ -14,11 +14,11 @@ import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
 import { useGetListsQuery } from '../../redux/slices/listApiSlice';
 import { useAddTodoMutation } from '../../redux/slices/todoApiSlice';
 
-const SearchLine = ({ AddTaskHandler }) => {
+const TodoInput = ({ defaultDate = dayjs(), defaultList = {} }) => {
   // данные формы
-  const [date, setDate] = useState(dayjs());
+  const [date, setDate] = useState(defaultDate);
   const [priority, setPriority] = useState(0);
-  const [list, setList] = useState({});
+  const [list, setList] = useState(defaultList);
   const [title, setTitle] = useState('');
   const [notes, setNotes] = useState('');
 
@@ -64,7 +64,7 @@ const SearchLine = ({ AddTaskHandler }) => {
               ref={calendarButton}
               onClick={calendarDropdown.toggle}
               className="deadline-button">
-              <CalendarIcon /> {date.format(`DD.MM`)}
+              <CalendarIcon /> <div className="button-text">{date.format(`DD.MM.YYYY`)}</div>
             </button>
             <Dropdown
               button={calendarButton}
@@ -78,7 +78,8 @@ const SearchLine = ({ AddTaskHandler }) => {
               ref={priorityButton}
               className="priority-button"
               onClick={priorityDropdown.toggle}>
-              <FlagIcon className={priorities[priority].className} /> {priorities[priority].title}
+              <FlagIcon className={priorities[priority].className} />
+              <div className="button-text"> {priorities[priority].title}</div>
             </button>
             <PriorityDropdown
               button={priorityButton}
@@ -92,7 +93,7 @@ const SearchLine = ({ AddTaskHandler }) => {
             <ListIcon />
             {list.id ? (
               <>
-                {list.title}
+                <div className="button-text"> {list.title}</div>
                 <XmarkIcon
                   className="xmark"
                   onClick={(e) => {
@@ -114,15 +115,12 @@ const SearchLine = ({ AddTaskHandler }) => {
                 title,
                 notes,
                 priority,
-                deadline: date,
+                deadline: date.format('YYYY-MM-DD'),
                 folderId: list.id,
                 completed: false,
               });
               setTitle('');
               setNotes('');
-              setPriority(0);
-              setDate(dayjs());
-              setList({});
             }}>
             Добавить задачу
           </button>
@@ -139,4 +137,4 @@ const SearchLine = ({ AddTaskHandler }) => {
   );
 };
 
-export default SearchLine;
+export default TodoInput;

@@ -13,19 +13,37 @@
 .todo-item {
   background-color: $dark-grey;
   cursor: pointer;
+  position: relative;
   padding: 10px;
   border-radius: 10px;
-  height: 50px;
+  min-height: 50px;
   display: grid;
   border: $dark-grey 1px solid;
   align-items: center;
-  grid-template-columns: 40px auto 20px;
+  grid-template-columns: 40px minmax(20px, auto) 20px;
   transition: 0.2s ease-in;
+
   &__list-name {
     font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
     color: $light-grey;
     line-height: 1.6;
   }
+
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+
+  &__delete-button {
+    align-self: flex-end;
+  }
+
   &:hover {
     background-color: $grey;
     border-color: $grey;
@@ -33,7 +51,7 @@
   lable {
     font-size: 16px;
     line-height: 1;
-
+    width: 50%;
     font-weight: 400;
     color: $white;
   }

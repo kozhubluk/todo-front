@@ -1,39 +1,28 @@
 import './TodoItem.scss';
 import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
+import { priorities } from '../../assets/priorities';
 
-const priorityClasses = ['', 'low', 'medium', 'high'];
-
-const TodoItem = ({
-  title,
-  list,
-  priority,
-  isDone,
-  actionHandler,
-  deleteHandler,
-  toggleHandler,
-  updateIsLoading,
-}) => {
+const TodoItem = ({ data, list, actionHandler, deleteHandler, toggleHandler, updateIsLoading }) => {
   return (
-    <div onClick={actionHandler} className={`todo-item${isDone ? ' done' : ''}`}>
+    <div onClick={actionHandler} className={`todo-item${data.completed ? ' done' : ''}`}>
       <label
         onClick={(e) => e.stopPropagation()}
-        className={`container ${priorityClasses[priority]}`}>
+        className={`container ${priorities[data.priority].className}`}>
         <input
           onChange={(e) => {
             if (!updateIsLoading) {
               toggleHandler();
             }
           }}
-          checked={isDone}
+          checked={data.completed}
           type="checkbox"
         />
         <div className="checkmark"></div>
       </label>
-      <div>
+      <div className="todo-item__info">
         <span className="todo-item__list-name">{list}</span>
-        <label className="todo-item__title">{title}</label>
+        <label className="todo-item__title">{data.title}</label>
       </div>
-
       <div
         className="delete-button"
         onClick={(e) => {

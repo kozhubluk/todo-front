@@ -1,7 +1,15 @@
-import Wrapper from '../../Wrapper/Wrapper';
+import dayjs from 'dayjs';
+import TodosList from '../../TodosList/TodosList';
 
 const Week = () => {
-  return <Wrapper></Wrapper>;
+  return (
+    <TodosList
+      params={{
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().add(6, 'day').format('YYYY-MM-DD'),
+      }}
+    />
+  );
 };
 
 export default Week;

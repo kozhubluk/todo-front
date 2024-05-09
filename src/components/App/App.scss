@@ -218,14 +218,22 @@ textarea {
 .priority-button,
 .deadline-button {
   transition: 0.2s;
+
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 4px;
-  height: fit-content;
   padding: 4px 10px;
   background-color: $dark-grey;
   border-radius: 20px;
+
+  .button-text {
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   &:hover {
     background-color: $grey;
   }

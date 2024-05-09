@@ -16,6 +16,9 @@
   &__item {
     font-size: 20px;
     position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     cursor: pointer;
     transition: 0.15s;
     line-height: 2;

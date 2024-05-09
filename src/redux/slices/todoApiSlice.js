@@ -3,7 +3,10 @@ import { apiSlice } from './apiSlice';
 export const todoApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => ({ url: '/todos' }),
+      query: (params) => ({
+        url: '/todos',
+        params,
+      }),
       providesTags: (result, error, arg) =>
         result
           ? [...result.map(({ id }) => ({ type: 'Todo', id })), { type: 'Todo', id: 'LIST' }]

@@ -1,11 +1,14 @@
-import TodoForm from '../../TodoForm/TodoForm';
-import Wrapper from '../../Wrapper/Wrapper';
+import dayjs from 'dayjs';
+import TodosList from '../../TodosList/TodosList';
 
 const AllTasks = () => {
   return (
-    <Wrapper>
-      <TodoForm />
-    </Wrapper>
+    <TodosList
+      params={{
+        completed: true,
+      }}
+      showForm={false}
+    />
   );
 };
 

@@ -8,38 +8,25 @@ import Calendar from '../Calendar/Calendar';
 import { Dropdown } from '../Dropdown/Dropdown';
 import PriorityDropdown from '../PriorityDropdown/PriorityDropdown';
 import ListModal from '../ListModal/ListModal';
-import SubtaskItem, { NewSubtaskButton, NewSubtaskItem } from '../SubtaskItem/SubtaskItem';
 import { getModalHanlder } from '../../utils/getModalHanlder';
 import { priorities } from '../../assets/priorities';
 import { useGetListsQuery } from '../../redux/slices/listApiSlice';
 import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
-import {
-  useAddSubtaskMutation,
-  useDeleteSubtaskMutation,
-  useGetSubtasksQuery,
-  useUpdateSubtaskMutation,
-} from '../../redux/slices/subtaskApiSlice';
-import { useGetTodoQuery, useUpdateTodoMutation } from '../../redux/slices/todoApiSlice';
+import SubtasksList from './SubtasksList';
 
 const TodoForm = ({ updateTodo, data }) => {
-  // списки
+  // списки пользователя
   const { data: lists, isLoading: listsIsLoading } = useGetListsQuery();
 
-  // подзадачи
-  const { data: subtasks, isLoading: subtasksIsLoading } = useGetSubtasksQuery(data?.id || 0);
-  const [addSubtask] = useAddSubtaskMutation();
-  const [updateSubtask] = useUpdateSubtaskMutation();
-  const [deleteSubtask] = useDeleteSubtaskMutation();
-
   // данные формы
-  const [date, setDate] = useState(dayjs());
+  const [deadline, setDeadline] = useState(dayjs());
   const [priority, setPriority] = useState(0);
   const [list, setList] = useState({});
   const [title, setTitle] = useState('');
   const [notes, setNotes] = useState('');
 
   useEffect(() => {
-    setDate(dayjs(data?.deadline));
+    setDeadline(dayjs(data?.deadline));
     setPriority(data?.priority || 0);
     setTitle(data?.title || '');
     setNotes(data?.notes || '');
@@ -60,9 +47,6 @@ const TodoForm = ({ updateTodo, data }) => {
   const listModal = getModalHanlder(modals, 'list', setModals);
   const priorityDropdown = getModalHanlder(modals, 'prioroty', setModals);
 
-  // Ввод для подзадач
-  const subtaskInput = useRef(null);
-
   return (
     <div className="todo-form">
       <input
@@ -79,26 +63,28 @@ const TodoForm = ({ updateTodo, data }) => {
             className="deadline-button"
             ref={calendarButton}
             onClick={calendarDropdown.toggle}>
-            <CalendarIcon /> {date.format('DD.MM')}
+            <CalendarIcon /> <div className="button-text">{deadline.format('DD.MM.YYYY')}</div>
           </button>
           <Dropdown
+            active={calendarDropdown.isOpen}
             button={calendarButton}
-            closeDropdown={calendarDropdown.close}
-            active={calendarDropdown.isOpen}>
-            <Calendar value={date} setValue={setDate} />
+            closeDropdown={calendarDropdown.close}>
+            <Calendar value={deadline} setValue={setDeadline} />
           </Dropdown>
         </div>
-
         <button className="list-button" onClick={listModal.open}>
           <ListIcon />
-          {list.id && !listsIsLoading ? (
+
+          {list.id && list.id !== -1 && !listsIsLoading ? (
             <>
-              {lists.find((listItem) => list.id === listItem.id)?.title}{' '}
+              <div className="button-text">
+                {lists.find((listItem) => list.id === listItem.id)?.title}
+              </div>
               <XmarkIcon
                 className="xmark"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setList({});
+                  setList({ id: -1 });
                 }}
               />
             </>
@@ -112,13 +98,13 @@ const TodoForm = ({ updateTodo, data }) => {
             ref={priorityButton}
             onClick={priorityDropdown.toggle}>
             <FlagIcon className={priorities[priority].className} />
-            {priorities[priority].title}
+            <p>{priorities[priority].title}</p>
           </button>
           <PriorityDropdown
-            setPriority={setPriority}
-            button={priorityButton}
-            closeDropdown={priorityDropdown.close}
             active={priorityDropdown.isOpen}
+            button={priorityButton}
+            setPriority={setPriority}
+            closeDropdown={priorityDropdown.close}
           />
         </div>
       </div>
@@ -127,58 +113,33 @@ const TodoForm = ({ updateTodo, data }) => {
           Описание
         </label>
         <textarea
-          name="notes"
           className="todo-form__input"
+          name="notes"
           value={notes}
           onChange={(e) => {
             setNotes(e.target.value);
           }}></textarea>
       </div>
-
-      <div className="todo-form__subtasks">
-        {!subtasksIsLoading &&
-          subtasks.map((subtask) => (
-            <SubtaskItem
-              key={subtask.id}
-              deleteHandler={() => {
-                deleteSubtask(subtask.id);
-              }}
-              toggleHandler={() => {
-                updateSubtask({ id: subtask.id, body: { completed: !subtask.completed } });
-              }}
-              data={subtask}
-              onBlurHandler={(text) => {
-                updateSubtask({ id: subtask.id, body: { title: text } });
-              }}
-            />
-          ))}
-
-        <NewSubtaskItem
-          onBlurHandler={(text) => {
-            addSubtask({ todoId: data.id, body: { title: text, completed: false } });
-          }}
-          visibility={document.activeElement === subtaskInput.current}
-          inputRef={subtaskInput}
-        />
-        <NewSubtaskButton
-          onClick={() => {
-            subtaskInput.current.focus();
-          }}
-        />
-      </div>
+      <SubtasksList todoId={data?.id} />
       <div className="todo-form__button-wrapper">
         <button
           onClick={() => {
-            updateTodo({ title, notes, deadline: date, priority, folderId: list.id });
+            updateTodo({
+              title,
+              notes,
+              deadline: deadline.format('YYYY-MM-DD'),
+              priority,
+              folderId: list.id,
+            });
           }}>
           Сохранить
         </button>
       </div>
 
       <ListModal
-        data={lists}
-        listId={list.id}
         active={listModal.isOpen}
+        listId={list.id}
+        data={lists}
         closeModal={listModal.close}
         setList={setList}
       />
