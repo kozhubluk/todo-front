@@ -8,6 +8,7 @@ import Week from '../Pages/Week/Week';
 import Signup from '../Pages/Signup/Signup';
 import Login from '../Pages/Login/Login';
 import ProtectedRoute from './ProtectedRoute';
+import List from '../Pages/List/List';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/today" element={<TodayPage />} />
           <Route path="/week" element={<Week />} />
           <Route path="/all" element={<AllTasks />} />
+          <Route path="/lists/:id" element={<List />} />
         </Route>
       </Routes>
     </BrowserRouter>

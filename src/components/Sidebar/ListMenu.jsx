@@ -7,8 +7,10 @@ import {
   useUpdateListMutation,
 } from '../../redux/slices/listApiSlice';
 import ListItem from './ListItem';
-import AddListModal from '../AddListModal/AddListModal';
+import EditModal from '../AddListModal/EditModal';
 import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import { Snackbar } from '@mui/material';
+import { useSnackbar } from '../../hooks/Snackbar';
 
 const ListMenu = () => {
   // Модальные окна
@@ -35,6 +37,9 @@ const ListMenu = () => {
   const [updateList, { isLoading: updateIsLoading }] = useUpdateListMutation();
   const { data: lists, isLoading } = useGetListsQuery();
 
+  // snackbar
+  const { open, message, handleClose, setSnackbar } = useSnackbar();
+
   return (
     <>
       <li className="sidebar__header">
@@ -60,29 +65,31 @@ const ListMenu = () => {
           />
         ))}
 
-      <AddListModal
+      <EditModal
+        modalName={'Название списка'}
         active={editListModal.isOpen}
-        data={currentList}
+        data={currentList.title}
         closeModal={editListModal.close}
-        saveHandler={async (body) => {
-          await updateList({ id: currentList.id, body })
+        saveHandler={async (title) => {
+          await updateList({ id: currentList.id, body: { title } })
             .unwrap()
-            .then((payload) => console.log('fulfilled', payload))
-            .catch((error) => console.error('rejected', error));
+            .then(() => setSnackbar('Список обновлен'))
+            .catch((error) => setSnackbar(error.data));
 
           editListModal.close();
         }}
         cancelHandler={editListModal.close}
         isLoading={updateIsLoading}
       />
-      <AddListModal
+      <EditModal
+        modalName={'Название списка'}
         active={addListModal.isOpen}
         closeModal={addListModal.close}
-        saveHandler={async (body) => {
-          await addList(body)
+        saveHandler={async (title) => {
+          await addList({ title })
             .unwrap()
-            .then((payload) => console.log('fulfilled', payload))
-            .catch((error) => console.error('rejected', error));
+            .then(() => setSnackbar('Список добавлен'))
+            .catch((error) => setSnackbar(error.data));
 
           addListModal.close();
         }}
@@ -92,7 +99,10 @@ const ListMenu = () => {
       <ConfirmModal
         active={confirmModal.isOpen}
         confirmHandler={async () => {
-          await deleteList(currentList.id);
+          await deleteList(currentList.id)
+            .unwrap()
+            .then(() => setSnackbar('Список удален'))
+            .catch((error) => setSnackbar(error.data));
           confirmModal.close();
         }}
         cancelHandler={confirmModal.close}
@@ -100,6 +110,14 @@ const ListMenu = () => {
         isLoading={deleteIsLoading}>
         {confirmModalText}
       </ConfirmModal>
+
+      <Snackbar
+        sx={{ zIndex: '5000' }}
+        open={open}
+        autoHideDuration={1500}
+        message={message}
+        onClose={handleClose}
+      />
     </>
   );
 };

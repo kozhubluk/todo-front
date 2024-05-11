@@ -14,11 +14,11 @@ import { ReactComponent as XmarkIcon } from '../../assets/svg/xmark.svg';
 import { useGetListsQuery } from '../../redux/slices/listApiSlice';
 import { useAddTodoMutation } from '../../redux/slices/todoApiSlice';
 
-const TodoInput = ({ defaultDate = dayjs(), defaultList = {} }) => {
+const TodoInput = ({ defaultDate = dayjs(), setSnackbar }) => {
   // данные формы
   const [date, setDate] = useState(defaultDate);
   const [priority, setPriority] = useState(0);
-  const [list, setList] = useState(defaultList);
+  const [list, setList] = useState({});
   const [title, setTitle] = useState('');
   const [notes, setNotes] = useState('');
 
@@ -118,7 +118,14 @@ const TodoInput = ({ defaultDate = dayjs(), defaultList = {} }) => {
                 deadline: date.format('YYYY-MM-DD'),
                 folderId: list.id,
                 completed: false,
-              });
+              })
+                .unwrap()
+                .then(() => {
+                  setSnackbar('Добавлена новая задача');
+                })
+                .catch((error) => {
+                  setSnackbar(error.data);
+                });
               setTitle('');
               setNotes('');
             }}>

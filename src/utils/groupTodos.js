@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-export const groupByDeadline = (items) => {
-  const groupedItems = {};
+export const groupByDeadline = (items, showOverdue = false) => {
+  const groupedItems = { overdue: { date: 'Просрочено', items: [] } };
 
   const today = dayjs().startOf('day');
   const tomorrow = today.add(1, 'day');
@@ -11,23 +11,28 @@ export const groupByDeadline = (items) => {
     const deadline = item?.deadline;
     const date = dayjs(deadline);
 
-    if (!groupedItems[deadline]) {
-      groupedItems[deadline] = {
-        items: [],
-      };
-      if (date.isSame(yesterday, 'day')) {
+    if (showOverdue && date.isBefore(today) && !item.completed) {
+      groupedItems.overdue.items.push(item); // добавляем просроченные задачи
+    } else {
+      if (!groupedItems[deadline]) {
+        // если такой даты еще нет в объекте, заводим для нее массив
+        groupedItems[deadline] = {
+          items: [],
+        };
+      }
+      if (date.isSame(yesterday, 'day') && !showOverdue) {
         groupedItems[deadline].date = 'Вчера';
       } else if (date.isSame(today, 'day')) {
         groupedItems[deadline].date = 'Сегодня';
       } else if (date.isSame(tomorrow, 'day')) {
         groupedItems[deadline].date = 'Завтра';
-      } else {
+      } else if ((date.isBefore(today) && !showOverdue) || date.isAfter(tomorrow)) {
         groupedItems[deadline].date = date.format(
           `DD.MM${today.year() !== date.year() ? '.YYYY' : ''}`,
         );
       }
 
-      groupedItems[deadline].items.push(item);
+      if (groupedItems[deadline].date) groupedItems[deadline].items.push(item);
     }
   });
   return groupedItems;

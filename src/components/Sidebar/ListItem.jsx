@@ -12,7 +12,7 @@ const ListItem = ({ data: { id, title }, editHandler, deleteHandler }) => {
   return (
     <li className="sidebar__item">
       <NavLink
-        to={`/tasks/${id}`}
+        to={`/lists/${id}`}
         className={({ isActive }) =>
           isActive ? 'sidebar__item-link active' : 'sidebar__item-link'
         }>

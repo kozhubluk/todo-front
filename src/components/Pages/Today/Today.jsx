@@ -5,9 +5,9 @@ const TodayPage = () => {
   return (
     <TodosList
       params={{
-        startDate: dayjs().format('YYYY-MM-DD'),
         endDate: dayjs().format('YYYY-MM-DD'),
       }}
+      showOverdue={true}
     />
   );
 };

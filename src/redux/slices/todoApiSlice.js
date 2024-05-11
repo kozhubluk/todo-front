@@ -3,9 +3,18 @@ import { apiSlice } from './apiSlice';
 export const todoApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: (params) => ({
-        url: '/todos',
+      query: ({ params, id }) => ({
+        url: `${id ? `/${id}` : ''}/todos`,
         params,
+      }),
+      providesTags: (result, error, arg) =>
+        result
+          ? [...result.map(({ id }) => ({ type: 'Todo', id })), { type: 'Todo', id: 'LIST' }]
+          : [{ type: 'Todo', id: 'LIST' }],
+    }),
+    getTodosByList: builder.query({
+      query: (id) => ({
+        url: `${id}/todos`,
       }),
       providesTags: (result, error, arg) =>
         result
@@ -50,6 +59,7 @@ export const todoApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetTodosQuery,
+  useGetTodosByListQuery,
   useGetTodoQuery,
   useAddTodoMutation,
   useUpdateTodoMutation,

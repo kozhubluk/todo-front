@@ -6,7 +6,6 @@ const Week = () => {
     <TodosList
       params={{
         startDate: dayjs().format('YYYY-MM-DD'),
-        endDate: dayjs().add(6, 'day').format('YYYY-MM-DD'),
       }}
     />
   );
