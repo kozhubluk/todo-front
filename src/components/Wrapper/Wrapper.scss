@@ -1,4 +1,53 @@
+@import '../../styles/colors.scss';
+
 .wrapper {
   display: grid;
   grid-template-columns: auto 1fr;
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.menu-button {
+  @media screen and (max-width: 600px) {
+    position: absolute;
+    display: block;
+    top: 10px;
+    left: 15px;
+    cursor: pointer;
+    width: 40px;
+
+    &:hover span,
+    &:hover span::before,
+    &:hover span::after {
+      background-color: $white;
+    }
+
+    span,
+    span:before,
+    span:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      display: block;
+      border-radius: 2px;
+      background-color: $light-grey;
+      height: 4px;
+      width: 100%;
+      transition: 0.2s;
+    }
+    span {
+      top: 0.2rem;
+      width: 1.7rem;
+    }
+
+    span:before {
+      top: 0.5rem;
+    }
+    span:after {
+      top: 1rem;
+    }
+  }
+
+  display: none;
 }

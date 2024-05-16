@@ -55,4 +55,10 @@
       }
     }
   }
+
+  @media screen and (max-width: 800px) {
+    &__box {
+      width: 70vw;
+    }
+  }
 }

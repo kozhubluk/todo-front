@@ -1,8 +1,8 @@
 @import '../../styles/colors.scss';
 
 .todo-form {
-  width: 500px;
   height: 460px;
+  width: 500px;
   overflow-y: scroll;
   border-radius: 10px;
   z-index: 1200;
@@ -15,9 +15,13 @@
   &__title {
     margin-bottom: 10px;
     font-size: 24px;
+    display: block;
+    width: 90%;
   }
+
   &__buttons {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 15px;
   }
@@ -61,5 +65,13 @@
       text-align: center;
       margin-left: 30px;
     }
+  }
+
+  @media screen and (max-width: 700px) {
+    width: fit-content;
+  }
+
+  @media screen and (max-height: 700px) {
+    height: 300px;
   }
 }

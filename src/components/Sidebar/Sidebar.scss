@@ -87,6 +87,10 @@
     position: relative;
   }
 
+  &__close-button {
+    display: none;
+  }
+
   &__item-link {
     gap: 6px;
     width: 100%;
@@ -153,6 +157,52 @@
     font-size: 24px;
     &:hover {
       color: $main-blue;
+    }
+  }
+
+  &__close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 0;
+
+    &:hover::before,
+    &:hover::after {
+      background-color: $white;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      width: 20px;
+      height: 4px;
+      border-radius: 4px;
+      background: $light-grey;
+      transition: 0.2s;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    position: absolute;
+    transition: 0.3s;
+    opacity: 100;
+
+    &__close-button {
+      display: block;
+    }
+
+    &.hide {
+      left: -100%;
+      opacity: 0;
+      transition: 0.3s;
     }
   }
 }

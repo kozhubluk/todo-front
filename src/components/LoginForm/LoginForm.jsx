@@ -35,7 +35,7 @@ const LoginForm = () => {
               setErrorMessage(error.data.message);
             }
           }}>
-          {({ touched, isValid }) => (
+          {({ touched, isValid, values }) => (
             <Form>
               {errorMessage && <div className="error-message">{errorMessage}</div>}
               <Field
@@ -55,9 +55,7 @@ const LoginForm = () => {
                 placeholder="Введите пароль"
               />
 
-              <FormButton
-                type="submit"
-                disabled={!isValid || Object.keys(touched).length < 1 || isLoading}>
+              <FormButton type="submit" disabled={!isValid || isLoading}>
                 {isLoading ? <CircularProgress size="30px" color="inherit" /> : 'Войти'}
               </FormButton>
             </Form>

@@ -28,6 +28,10 @@
     &:focus-within {
       border-color: $white;
     }
+
+    input {
+      display: block;
+    }
   }
 
   &__input-wrapper {

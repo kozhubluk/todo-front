@@ -16,7 +16,7 @@ import EditModal from '../AddListModal/EditModal';
 import { useGetUserQuery, useUpdateUserMutation } from '../../redux/slices/userApiSlice';
 import { Skeleton } from '@mui/material';
 
-const Sidebar = () => {
+const Sidebar = ({ active, show, hide, toggle }) => {
   const [modals, setModals] = useState({
     userDropdown: false,
     userModal: false,
@@ -33,8 +33,9 @@ const Sidebar = () => {
   const [updateUser, { isLoading: updateIsLoading }] = useUpdateUserMutation();
 
   return (
-    <div className="sidebar">
+    <div className={`sidebar${!active ? ' hide' : ''}`}>
       <div className="sidebar__container">
+        <div className="sidebar__close-button" onClick={hide}></div>
         <div
           onClick={(e) => {
             userDropdown.toggle();
