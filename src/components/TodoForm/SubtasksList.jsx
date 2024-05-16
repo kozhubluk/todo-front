@@ -6,6 +6,7 @@ import {
   useUpdateSubtaskMutation,
 } from '../../redux/slices/subtaskApiSlice';
 import { useRef } from 'react';
+import ProgressBar from '../ProgressBar/ProgressBar';
 
 const SubtasksList = ({ todoId }) => {
   // подзадачи
@@ -19,6 +20,12 @@ const SubtasksList = ({ todoId }) => {
   return (
     <>
       <div className="todo-form__subtasks">
+        {subtasks?.length > 0 ? (
+          <ProgressBar
+            current={subtasks?.filter((item) => item.completed).length}
+            total={subtasks?.length}
+          />
+        ) : null}
         {!isLoading &&
           !isError &&
           subtasks.map((subtask) => (

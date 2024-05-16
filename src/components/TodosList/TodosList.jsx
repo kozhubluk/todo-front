@@ -17,7 +17,13 @@ import { Skeleton, Snackbar } from '@mui/material';
 import { groupByDeadline } from '../../utils/groupTodos';
 import { useSnackbar } from '../../hooks/Snackbar';
 
-const TodosList = ({ params = {}, id, showForm = true, showOverdue = false }) => {
+const TodosList = ({
+  params = {},
+  id,
+  showForm = true,
+  showOverdue = false,
+  showProgressBar = true,
+}) => {
   // Модальные окна
   const [modals, setModals] = useState({
     confirm: false,
