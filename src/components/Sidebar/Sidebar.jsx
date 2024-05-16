@@ -36,17 +36,16 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="sidebar__container">
         <div
-          ref={dropdownButton}
           onClick={(e) => {
             userDropdown.toggle();
           }}
           className="sidebar__user-info">
-          <div className="sidebar__setting">
+          <div ref={dropdownButton} className="sidebar__setting">
             <SettingIcon />
           </div>
           <div className="sidebar__username">
             {!isLoading ? (
-              data.name
+              <p> {data?.name}</p>
             ) : (
               <Skeleton
                 variant="rectangular"

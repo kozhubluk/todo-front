@@ -7,7 +7,7 @@ const TodoItem = ({ data, list, actionHandler, deleteHandler, toggleHandler, upd
     <div onClick={actionHandler} className={`todo-item${data.completed ? ' done' : ''}`}>
       <label
         onClick={(e) => e.stopPropagation()}
-        className={`container ${priorities[data.priority].className}`}>
+        className={`container ${priorities[data?.priority || 0].className}`}>
         <input
           onChange={(e) => {
             if (!updateIsLoading) {

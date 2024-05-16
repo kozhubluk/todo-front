@@ -7,7 +7,7 @@ import {
 } from '../../redux/slices/subtaskApiSlice';
 import { useRef } from 'react';
 
-const SubtasksList = ({ todoId, setSnackbar }) => {
+const SubtasksList = ({ todoId }) => {
   // подзадачи
   const { data: subtasks, isLoading, isError } = useGetSubtasksQuery(todoId || 0);
   const [addSubtask] = useAddSubtaskMutation();
@@ -26,47 +26,22 @@ const SubtasksList = ({ todoId, setSnackbar }) => {
               key={subtask.id}
               data={subtask}
               deleteHandler={async () => {
-                await deleteSubtask(subtask.id)
-                  .unwrap()
-                  .then(() => {
-                    setSnackbar('Подзадача удалена');
-                  })
-                  .catch((error) => {
-                    setSnackbar(error.data);
-                  });
+                await deleteSubtask(subtask.id);
               }}
               toggleHandler={async () => {
-                await updateSubtask({ id: subtask.id, body: { completed: !subtask.completed } })
-                  .unwrap()
-                  .then(() => {
-                    setSnackbar('Подзадача обновлена');
-                  })
-                  .catch((error) => {
-                    setSnackbar(error.data);
-                  });
+                await updateSubtask({
+                  id: subtask.id,
+                  body: { completed: !subtask.completed },
+                });
               }}
               onBlurHandler={async (text) => {
-                await updateSubtask({ id: subtask.id, body: { title: text } })
-                  .unwrap()
-                  .then(() => {
-                    setSnackbar('Подзадача обновлена');
-                  })
-                  .catch((error) => {
-                    setSnackbar(error.data);
-                  });
+                await updateSubtask({ id: subtask.id, body: { title: text } });
               }}
             />
           ))}
         <NewSubtaskItem
           onBlurHandler={async (text) => {
-            await addSubtask({ todoId: todoId, body: { title: text, completed: false } })
-              .unwrap()
-              .then(() => {
-                setSnackbar('Подзадача добавлена');
-              })
-              .catch((error) => {
-                setSnackbar(error.data);
-              });
+            await addSubtask({ todoId: todoId, body: { title: text, completed: false } });
           }}
           visibility={document.activeElement === subtaskInput.current}
           inputRef={subtaskInput}

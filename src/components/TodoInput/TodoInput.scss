@@ -1,6 +1,6 @@
 @import '../../styles/colors.scss';
 
-.search-line {
+.todo_input {
   border: 1px solid $grey;
   border-radius: 10px;
   display: grid;
@@ -43,10 +43,6 @@
 
       &:hover {
         filter: brightness(1.2);
-      }
-
-      &:disabled {
-        opacity: 0.85;
       }
     }
   }

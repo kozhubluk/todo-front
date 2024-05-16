@@ -1,4 +1,6 @@
 @import '../../styles/colors.scss';
+@import '../../styles/scrollbar.scss';
+@import '../../styles/priorityButtons.scss';
 
 html,
 body,
@@ -203,10 +205,6 @@ textarea {
     &:hover {
       filter: brightness(1.4);
     }
-    &:disabled {
-      filter: brightness(0.5);
-      cursor: not-allowed;
-    }
   }
 }
 
@@ -218,7 +216,6 @@ textarea {
 .priority-button,
 .deadline-button {
   transition: 0.2s;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -257,57 +254,8 @@ textarea {
   }
 }
 
-svg {
-  &.default,
-  &.low,
-  &.medium,
-  &.high {
-    path {
-      transition: 0.3s;
-    }
+button {
+  &:disabled {
+    opacity: 0.75;
   }
-
-  &.default {
-    path {
-      stroke: $main-blue;
-    }
-  }
-
-  &.low {
-    path {
-      stroke: $green;
-    }
-  }
-
-  &.medium {
-    path {
-      stroke: $orange;
-    }
-  }
-
-  &.high {
-    path {
-      stroke: $red;
-    }
-  }
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 4px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background-color: $dark-grey;
-  border-radius: 2px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: $grey;
 }

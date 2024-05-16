@@ -50,6 +50,7 @@ const TodoForm = ({ updateTodo, data }) => {
   return (
     <div className="todo-form">
       <input
+        maxLength="240"
         type="text"
         className="todo-form__title"
         value={title}
@@ -114,6 +115,7 @@ const TodoForm = ({ updateTodo, data }) => {
         </label>
         <textarea
           className="todo-form__input"
+          maxLength="240"
           name="notes"
           value={notes}
           onChange={(e) => {
@@ -131,7 +133,8 @@ const TodoForm = ({ updateTodo, data }) => {
               priority,
               folderId: list.id,
             });
-          }}>
+          }}
+          disabled={!title.trim()}>
           Сохранить
         </button>
       </div>

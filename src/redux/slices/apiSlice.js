@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setCredentials, logout } from './authSlice';
+import { logout } from './authSlice';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:8080',
@@ -9,13 +9,12 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set('authorization', `Bearer ${token}`);
     }
-
     return headers;
   },
 });
 
 const customBaseQuery = async (args, api, extraOptions) => {
-  const result = await baseQuery(args, api, extraOptions);
+  let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
     api.dispatch(logout());

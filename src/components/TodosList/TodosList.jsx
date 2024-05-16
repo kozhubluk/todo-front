@@ -61,7 +61,7 @@ const TodosList = ({ params = {}, id, showForm = true, showOverdue = false }) =>
 
         {!isLoading ? (
           Object.keys(groupedData).map((key) => (
-            <>
+            <div className="today-container__group" key={key}>
               {groupedData[key].items.length > 0 && <h2 key={key.date}>{groupedData[key].date}</h2>}
               {groupedData[key].items.map((item) => (
                 <TodoItem
@@ -98,7 +98,7 @@ const TodosList = ({ params = {}, id, showForm = true, showOverdue = false }) =>
                   }}
                 />
               ))}
-            </>
+            </div>
           ))
         ) : (
           <>

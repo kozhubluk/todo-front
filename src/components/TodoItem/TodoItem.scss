@@ -5,6 +5,7 @@
     background-color: transparent;
     border: 1px solid $color;
   }
+
   input:checked ~ .checkmark {
     background-color: $color;
   }
@@ -48,6 +49,7 @@
     background-color: $grey;
     border-color: $grey;
   }
+
   lable {
     font-size: 16px;
     line-height: 1;
@@ -55,6 +57,7 @@
     font-weight: 400;
     color: $white;
   }
+
   span {
     display: block;
     grid-column-start: 3;

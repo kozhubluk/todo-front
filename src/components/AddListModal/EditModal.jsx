@@ -31,7 +31,11 @@ const EditModal = ({
           <label htmlFor="listName" className="modal-header">
             {modalName}
           </label>
-          <input name="listName" onChange={(e) => setTitle(e.target.value)} value={title}></input>
+          <input
+            maxLength="240"
+            name="listName"
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}></input>
         </div>
         <div className="modal-buttons">
           <button onClick={cancelHandler}>Отмена</button>

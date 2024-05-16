@@ -41,25 +41,27 @@ const TodoInput = ({ defaultDate = dayjs(), setSnackbar }) => {
 
   return (
     <>
-      <div className="search-line">
+      <div className="todo_input">
         <input
+          maxLength="240"
           placeholder="Название задачи"
-          className="search-line__title-input"
+          className="todo_input__title-input"
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
           }}
         />
         <input
+          maxLength="240"
           placeholder="Описание"
-          className="search-line__notes-input"
+          className="todo_input__notes-input"
           value={notes}
           onChange={(e) => {
             setNotes(e.target.value);
           }}
         />
-        <div className="search-line__buttons">
-          <div className="search-line__button-container">
+        <div className="todo_input__buttons">
+          <div className="todo_input__button-container">
             <button
               ref={calendarButton}
               onClick={calendarDropdown.toggle}
@@ -73,7 +75,7 @@ const TodoInput = ({ defaultDate = dayjs(), setSnackbar }) => {
               <Calendar value={date} setValue={setDate} />
             </Dropdown>
           </div>
-          <div className="search-line__button-container">
+          <div className="todo_input__button-container">
             <button
               ref={priorityButton}
               className="priority-button"
@@ -107,7 +109,7 @@ const TodoInput = ({ defaultDate = dayjs(), setSnackbar }) => {
             )}
           </button>
         </div>
-        <div className="search-line__bottom-panel">
+        <div className="todo_input__bottom-panel">
           <button
             disabled={!title.trim()}
             onClick={() => {

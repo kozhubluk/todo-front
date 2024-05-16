@@ -69,6 +69,12 @@
   &__username {
     font-weight: 500;
     position: relative;
+    p {
+      max-width: 150px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 
   &__menu {
@@ -111,7 +117,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
     width: 180px;
     font-weight: 400;
   }

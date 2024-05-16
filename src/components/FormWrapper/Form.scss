@@ -63,14 +63,5 @@
     &:hover {
       filter: brightness(1.15);
     }
-
-    &:disabled {
-      cursor: default;
-      opacity: 0.75;
-
-      &:hover {
-        filter: brightness(1);
-      }
-    }
   }
 }
