@@ -31,11 +31,13 @@
     -webkit-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
     -moz-box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
     box-shadow: 3px 3px 13px -1px rgba(0, 0, 0, 0.34);
+
     &.active {
       transform: translateY(0px);
       opacity: 1;
     }
   }
+
   &__close-button {
     width: 20px;
     height: 20px;
@@ -44,10 +46,12 @@
     top: 8px;
     cursor: pointer;
     z-index: 400;
+
     path {
       stroke: $white;
       fill: $white;
     }
+
     &:hover {
       path {
         stroke: $main-blue;
