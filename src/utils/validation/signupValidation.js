@@ -1,9 +1,11 @@
-export const validateEmail = (value) => {
+export const validateUsername = (value) => {
   let error;
   if (!value) {
     error = 'Поле является обязательным для заполнения';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-    error = 'Некорректный email-адрес';
+  } else if (value.length < 6) {
+    error = 'Слишком короткое имя';
+  } else if (value.length > 32) {
+    error = 'Слишком длинное имя';
   }
   return error;
 };
@@ -12,9 +14,9 @@ export const validateName = (value) => {
   let error;
   if (!value) {
     error = 'Поле является обязательным для заполнения';
-  } else if (value.length < 3) {
+  } else if (value.length < 1) {
     error = 'Слишком короткое имя';
-  } else if (value.length > 32) {
+  } else if (value.length > 48) {
     error = 'Слишком длинное имя';
   }
   return error;

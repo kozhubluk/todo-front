@@ -5,7 +5,7 @@ import FormInput from '../FormWrapper/FormInput';
 import FormButton from '../FormWrapper/FormButton';
 import {
   validateConfirmPassword,
-  validateEmail,
+  validateUsername,
   validateName,
   validatePassword,
 } from '../../utils/validation/signupValidation';
@@ -23,11 +23,11 @@ const SignupForm = () => {
     <div className="form-container">
       <FormWrapper title="Зарегистрироваться">
         <Formik
-          initialValues={{ email: '', name: '', password: '', confirmPassword: '' }}
+          initialValues={{ login: '', name: '', password: '', confirmPassword: '' }}
           onSubmit={async (values) => {
             try {
               await signup({
-                username: values.email,
+                username: values.login,
                 name: values.name,
                 password: values.password,
                 confirmPassword: values.confirmPassword,
@@ -42,12 +42,12 @@ const SignupForm = () => {
             <Form>
               {errorMessage && <div className="error-message">{errorMessage}</div>}
               <Field
-                title="email"
-                name="email"
-                type="email"
-                validate={validateEmail}
+                title="Логин"
+                name="login"
+                type="login"
+                validate={validateUsername}
                 component={FormInput}
-                placeholder="Введите email-адерс..."
+                placeholder="Введите login-адерс..."
               />
               <Field
                 title="Имя"
@@ -78,7 +78,7 @@ const SignupForm = () => {
               <FormButton
                 type="submit"
                 disabled={!isValid || Object.keys(touched).length < 1 || isLoading}
-                value="Зарегистрироваться через Email">
+                value="Зарегистрироваться через login">
                 {isLoading ? <CircularProgress size="30px" color="inherit" /> : 'Войти'}
               </FormButton>
             </Form>

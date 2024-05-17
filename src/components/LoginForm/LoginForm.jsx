@@ -3,7 +3,7 @@ import FormWrapper from '../FormWrapper/FormWrapper';
 import FormInput from '../FormWrapper/FormInput';
 import FormButton from '../FormWrapper/FormButton';
 import { Link, useNavigate } from 'react-router-dom';
-import { validateEmail, validatePassword } from '../../utils/validation/signupValidation';
+import { validateUsername, validatePassword } from '../../utils/validation/signupValidation';
 import { useLoginMutation } from '../../redux/slices/authApiSlice';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../redux/slices/authSlice';
@@ -21,11 +21,11 @@ const LoginForm = () => {
     <div className="form-container">
       <FormWrapper title="Войти">
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ login: '', password: '' }}
           onSubmit={async (values) => {
             try {
               const data = await login({
-                username: values.email,
+                username: values.login,
                 password: values.password,
               }).unwrap();
               setErrorMessage(null);
@@ -39,12 +39,12 @@ const LoginForm = () => {
             <Form>
               {errorMessage && <div className="error-message">{errorMessage}</div>}
               <Field
-                title="email"
-                name="email"
+                title="Логин"
+                name="login"
                 type="text"
-                validate={validateEmail}
+                validate={validateUsername}
                 component={FormInput}
-                placeholder="Введите email-адерс..."
+                placeholder="Введите логин..."
               />
               <Field
                 title="Пароль"

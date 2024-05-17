@@ -14,10 +14,12 @@
   opacity: 0;
   pointer-events: none;
   transition: 0.25s;
+
   &.active {
     opacity: 1;
     pointer-events: auto;
   }
+
   &__box {
     max-width: 600px;
     transform: translateY(-50px);
