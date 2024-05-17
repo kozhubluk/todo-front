@@ -64,7 +64,6 @@ const TodosList = ({
     <Wrapper>
       <div className="today-container">
         {showForm && <TodoInput setSnackbar={setSnackbar} />}
-
         {!isLoading ? (
           Object.keys(groupedData).map((key) => (
             <div className="today-container__group" key={key}>

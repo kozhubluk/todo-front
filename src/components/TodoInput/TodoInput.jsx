@@ -44,7 +44,7 @@ const TodoInput = ({ defaultDate = dayjs(), setSnackbar }) => {
       <div className="todo_input">
         <input
           maxLength="240"
-          placeholder="Название задачи"
+          placeholder="Введите название задачи"
           className="todo_input__title-input"
           value={title}
           onChange={(e) => {
@@ -53,7 +53,7 @@ const TodoInput = ({ defaultDate = dayjs(), setSnackbar }) => {
         />
         <input
           maxLength="240"
-          placeholder="Описание"
+          placeholder="Введите описание"
           className="todo_input__notes-input"
           value={notes}
           onChange={(e) => {

@@ -46,6 +46,10 @@
     &:hover {
       background-color: $light-grey;
     }
+
+    .bold {
+      font-weight: 500;
+    }
   }
 
   &__item-left-icon,
