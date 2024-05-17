@@ -3,9 +3,11 @@ export const validateUsername = (value) => {
   if (!value) {
     error = 'Поле является обязательным для заполнения';
   } else if (value.length < 6) {
-    error = 'Слишком короткое имя';
-  } else if (value.length > 32) {
-    error = 'Слишком длинное имя';
+    error = 'Слишком короткий логин';
+  } else if (!/(?!.*\.\.)^[A-Za-z0-9_][A-Za-z0-9_.]*[A-Za-z0-9_]$/.test(value)) {
+    error = 'Некорректный логин';
+  } else if (value.length > 48) {
+    error = 'Слишком длинный логин';
   }
   return error;
 };

@@ -47,7 +47,7 @@ const SignupForm = () => {
                 type="login"
                 validate={validateUsername}
                 component={FormInput}
-                placeholder="Введите login-адерс..."
+                placeholder="Введите login..."
               />
               <Field
                 title="Имя"
